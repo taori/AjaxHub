@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="MethodSignatureParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSources\MethodCarrierMocks.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\AjaxHub.v460.csproj">
@@ -66,6 +67,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>PACKAGEID</id>
+		<version>1.2.3</version>
+		<authors>AUTHOR</authors>
+		<owners>OWNERS</owners>
+		<description>DESCRIPTION</description>
+		<language>en-US</language>
+		<projectUrl>http://xunit.codeplex.com/</projectUrl>
+		<licenseUrl>http://xunit.codeplex.com/license</licenseUrl>
+		<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+		<tags>TAG1 TAG2</tags>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+	</metadata>
+	<files>
+		<file src="binaries\Release\lib\**" target="lib" />
+	</files>
+</package>

@@ -2,9 +2,18 @@ using System;
 
 namespace AjaxHub
 {
+	[AttributeUsage(AttributeTargets.Method)]
 	public class AjaxHubMethodAttribute : Attribute
 	{
-		public string Action { get; set; }
-		public string Controller { get; set; }
+		public string Name { get; set; }
+
+		public AjaxHubMethodAttribute()
+		{
+		}
+
+		public AjaxHubMethodAttribute(string name)
+		{
+			Name = name;
+		}
 	}
 }

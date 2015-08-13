@@ -19,12 +19,13 @@ namespace AjaxHub
 
 		public static IEnumerable<DiscoveryInformation> Discover(Type source)
 		{
+			var controller = source.GetCustomAttribute<AjaxHubControllerAttribute>();
 			foreach (var method in source.GetMethods())
 			{
 				var attr = method.GetCustomAttribute<AjaxHubMethodAttribute>();
 				if (attr != null)
 				{
-					yield return new DiscoveryInformation(source, method, attr);
+					yield return new DiscoveryInformation(source, method, attr, controller);
 				}
 			}
 		}

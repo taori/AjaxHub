@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjaxHubControllerAttribute.cs" />
     <Compile Include="AjaxHubMethodAttribute.cs" />
     <Compile Include="AjaxHubScriptProvider.cs" />
     <Compile Include="DiscoveryInformation.cs" />

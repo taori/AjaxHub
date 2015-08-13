@@ -6,6 +6,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.ncrunchproject
+*.ncrunchsolution
+*.ncrunchsolution.user
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -210,3 +213,12 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# build environment
+!build/
+
+**/build/package.publish.apiKey.txt
+build/packages/**
+
+
+
