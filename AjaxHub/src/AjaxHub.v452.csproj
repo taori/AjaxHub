@@ -41,16 +41,21 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AjaxHubControllerAttribute.cs" />
-    <Compile Include="AjaxHubMethodAttribute.cs" />
-    <Compile Include="AjaxHubMethodSignature.cs" />
-    <Compile Include="AjaxHubScriptProvider.cs" />
-    <Compile Include="IMethodStubWriter.cs" />
-    <Compile Include="MethodSignatureAssemblyParser.cs" />
-    <Compile Include="MethodStubWriterDefault.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
+    <ItemGroup>
+      <Compile Include="AjaxHubControllerAttribute.cs" />
+      <Compile Include="AjaxHubMethodAttribute.cs" />
+      <Compile Include="AjaxHubMethodSignature.cs" />
+      <Compile Include="AjaxHubScriptProvider.cs" />
+      <Compile Include="IMethodStubWriter.cs" />
+      <Compile Include="MethodSignatureAssemblyParser.cs" />
+      <Compile Include="MethodStubWriterDefault.cs" />
+      <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+<!--  <ItemGroup>-->
+<!--	  <Compile Include="$(MSBuildProjectDirectory)\SharedSources\*.cs">-->
+<!--		  <Link>$(RecursiveDir)\%(Filename)%(Extension)</Link>-->
+<!--	  </Compile>-->
+<!--  </ItemGroup>-->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

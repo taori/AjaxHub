@@ -13,7 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.v452", "src\AjaxHub
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.v460", "src\AjaxHub.v460.csproj", "{D6C083CC-DC99-42E9-A557-4B7C514EFF5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.v460.Test", "AjaxHub.v460.Test\AjaxHub.v460.Test.csproj", "{29310F24-CDFA-48BA-9C16-289E46962D8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.v460.Test", "tests\AjaxHub.v460.Test\AjaxHub.v460.Test.csproj", "{29310F24-CDFA-48BA-9C16-289E46962D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.Sandbox.Asp46", "sandbox\AjaxHub.Sandbox.Asp46\AjaxHub.Sandbox.Asp46.csproj", "{5C901CD0-7C83-46C2-9931-A902F20FBB95}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AjaxHub.Sandbox.Asp5", "sandbox\AjaxHub.Sandbox.Asp5\AjaxHub.Sandbox.Asp5.xproj", "{C980E749-DDA4-4400-B2C4-79691C0C8032}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{744AB0EA-2ED7-494E-9BBA-AC5FB82FB9EA}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +54,14 @@ Global
 		{29310F24-CDFA-48BA-9C16-289E46962D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29310F24-CDFA-48BA-9C16-289E46962D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29310F24-CDFA-48BA-9C16-289E46962D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C901CD0-7C83-46C2-9931-A902F20FBB95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C901CD0-7C83-46C2-9931-A902F20FBB95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C901CD0-7C83-46C2-9931-A902F20FBB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C901CD0-7C83-46C2-9931-A902F20FBB95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C980E749-DDA4-4400-B2C4-79691C0C8032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C980E749-DDA4-4400-B2C4-79691C0C8032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C980E749-DDA4-4400-B2C4-79691C0C8032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C980E749-DDA4-4400-B2C4-79691C0C8032}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
