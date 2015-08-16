@@ -1,3 +1,5 @@
+using AjaxAction;
+
 namespace AjaxHub.v460.Test.TestSources
 {
 	[AjaxHubController]

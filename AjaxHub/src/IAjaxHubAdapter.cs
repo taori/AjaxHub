@@ -7,7 +7,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AjaxHub
+namespace AjaxAction
 {
 	public interface ISignatureJavascriptSerializer
 	{
@@ -118,7 +118,7 @@ namespace AjaxHub
 			writer.Write(RenderHubCaller());
 			writer.Write(RenderHubFunctions(GetAssemblySignatures()));
 
-			return _renderedHubMethods = RenderHubFunctions(GetAssemblySignatures());
+			return _renderedHubMethods = writer.ToString();
 		}
 
 		public virtual ISignatureJavascriptSerializer CreateSignatureSerializer()
@@ -128,7 +128,39 @@ namespace AjaxHub
 
 		public virtual string RenderHubCaller()
 		{
-			return "var AjaxHubCall = function(serializedOptions){console.log(serializedOptions);}";
+			return @"
+var AjaxHubCallRequestStart = function(s){};
+var AjaxHubCallRequestDone = function(s){};
+var AjaxHubCallStatistics = { runningRequests : 0};
+var AjaxHubRequestContainer = null;
+
+var AjaxHubCall = function(serializedOptions){
+
+	if(AjaxHubRequestContainer == null){
+		AjaxHubRequestContainer = $('<div id=""AjaxHubRequestContainer"" style=""display: none;""><div>');
+		$('body').eq(0).append(AjaxHubRequestContainer);
+	}
+
+	AjaxHubCallStatistics.runningRequests++;
+	AjaxHubCallRequestStart(serializedOptions);
+
+	var $executionTarget = $('<div></div>');
+	AjaxHubRequestContainer.append($executionTarget);
+
+	$.ajax({
+		'url' : serializedOptions.signature.url,
+		'data' : serializedOptions.values,
+		'traditional' : true,
+		'method' : serializedOptions.signature.method
+	}).done(function(data){
+		$executionTarget.append(data);
+		$executionTarget.remove();
+		$executionTarget = null;
+
+		AjaxHubCallStatistics.runningRequests--;
+		AjaxHubCallRequestDone(serializedOptions);
+	});	
+};";
 		}
 
 		public IEnumerable<MethodSignature> GetAssemblySignatures()

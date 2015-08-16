@@ -1,6 +1,6 @@
 using System;
 
-namespace AjaxHub
+namespace AjaxAction
 {
 	[AttributeUsage(AttributeTargets.Class)]
 	public class AjaxHubControllerAttribute : Attribute

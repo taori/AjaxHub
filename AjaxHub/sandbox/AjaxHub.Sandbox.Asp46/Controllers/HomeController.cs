@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
+using AjaxAction;
+using Sandbox.Asp46.AjaxHub;
 
-namespace AjaxHub.Sandbox.Asp46.Controllers
+namespace Sandbox.Asp46.Controllers
 {
 	public class HomeController : Controller
 	{
@@ -26,5 +26,25 @@ namespace AjaxHub.Sandbox.Asp46.Controllers
 
 			return View();
 		}
+
+		[AjaxHubMethod]
+		public ActionResult TestMethodA()
+		{
+			return Content("hi");
+		}
+
+		[AjaxHubMethod(ParameterNames = "a,delay")]
+		public ActionResult TestMethodB(string[] a, int delay)
+		{
+			return Content(string.Format("<script type='text/javascript'>alert('{0}');</script>", string.Join(", ", a)));
+		}
 	}
+
+	public class AjaxActionResponse
+	{
+		protected AjaxAction.AjaxHub Create()
+		{
+			return new AjaxAction.AjaxHub(new AjaxHubAdapterMvc5());
+		}
+    }
 }

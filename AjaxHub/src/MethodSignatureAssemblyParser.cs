@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace AjaxHub
+namespace AjaxAction
 {
 	public class SignatureScannerBase : ISignatureScanner
 	{

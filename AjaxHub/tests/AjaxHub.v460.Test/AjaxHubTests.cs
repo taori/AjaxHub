@@ -1,18 +1,16 @@
-﻿
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using AjaxHub.v460.Test.Environment;
 using AjaxHub.v460.Test.TestSources;
 using NUnit.Framework;
 
-namespace AjaxHub.V452.Test
+namespace AjaxHub.v460.Test
 {
 	[TestFixture]
 	public class AjaxHubTests
 	{
 		[DebuggerStepThrough]
-		protected AjaxHub GetHub()
+		protected AjaxAction.AjaxHub GetHub()
 		{
 			return MockUtil.OfTypeAjaxHub.Default();
 		}

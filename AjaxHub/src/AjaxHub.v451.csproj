@@ -7,8 +7,8 @@
     <ProjectGuid>{18F233CB-B73B-460A-ACBD-9CF1019D8ACA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AjaxHub</RootNamespace>
-    <AssemblyName>AjaxHub</AssemblyName>
+    <RootNamespace>AjaxAction</RootNamespace>
+    <AssemblyName>AjaxAction</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

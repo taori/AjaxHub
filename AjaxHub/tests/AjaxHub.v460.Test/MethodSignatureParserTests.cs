@@ -1,12 +1,11 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AjaxAction;
 using AjaxHub.v460.Test.TestSources;
 using NUnit.Framework;
 
-namespace AjaxHub.V452.Test
+namespace AjaxHub.v460.Test
 {
 	[TestFixture]
 	public class SignatureScannerTests

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace AjaxHub.Sandbox.Asp46
+namespace Sandbox.Asp46
 {
 	public class RouteConfig
 	{

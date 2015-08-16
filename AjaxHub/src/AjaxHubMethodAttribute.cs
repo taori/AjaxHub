@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-namespace AjaxHub
+namespace AjaxAction
 {
 	[AttributeUsage(AttributeTargets.Method)]
 	public class AjaxHubMethodAttribute : Attribute

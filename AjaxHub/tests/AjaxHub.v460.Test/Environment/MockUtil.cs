@@ -1,3 +1,4 @@
+using AjaxAction;
 using Moq;
 
 namespace AjaxHub.v460.Test.Environment
@@ -6,7 +7,7 @@ namespace AjaxHub.v460.Test.Environment
 	{
 		public static class OfTypeAjaxHub
 		{
-			public static AjaxHub Default()
+			public static AjaxAction.AjaxHub Default()
 			{
 				var adapter = new Mock<IAjaxHubAdapter>();
 				var services = new Mock<AjaxHubServices>();
@@ -21,7 +22,7 @@ namespace AjaxHub.v460.Test.Environment
 
 				adapter.Setup(d => d.CreateScanner()).Returns(new SignatureScannerBase());
 				adapter.Setup(d => d.GetHubServices()).Returns(services.Object);
-				var hub = new AjaxHub(adapter.Object);
+				var hub = new AjaxAction.AjaxHub(adapter.Object);
 
 				return hub;
 

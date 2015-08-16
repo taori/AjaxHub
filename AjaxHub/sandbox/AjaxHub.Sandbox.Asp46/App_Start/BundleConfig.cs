@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace AjaxHub.Sandbox.Asp46
+namespace Sandbox.Asp46
 {
 	public class BundleConfig
 	{
