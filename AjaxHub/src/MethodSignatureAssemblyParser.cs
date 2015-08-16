@@ -6,7 +6,7 @@ namespace AjaxHub
 {
 	public class MethodSignatureAssemblyParser
 	{
-		public static IEnumerable<DiscoveryInformation> Discover(Assembly source)
+		public static IEnumerable<AjaxHubMethodSignature> Discover(Assembly source)
 		{
 			foreach (var type in source.GetTypes())
 			{
@@ -17,7 +17,7 @@ namespace AjaxHub
 			}
 		}
 
-		public static IEnumerable<DiscoveryInformation> Discover(Type source)
+		public static IEnumerable<AjaxHubMethodSignature> Discover(Type source)
 		{
 			var controller = source.GetCustomAttribute<AjaxHubControllerAttribute>();
 			foreach (var method in source.GetMethods())
@@ -25,7 +25,7 @@ namespace AjaxHub
 				var attr = method.GetCustomAttribute<AjaxHubMethodAttribute>();
 				if (attr != null)
 				{
-					yield return new DiscoveryInformation(source, method, attr, controller);
+					yield return new AjaxHubMethodSignature(source, method, attr, controller);
 				}
 			}
 		}

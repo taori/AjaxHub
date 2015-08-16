@@ -45,7 +45,7 @@
     <Compile Include="AjaxHubControllerAttribute.cs" />
     <Compile Include="AjaxHubMethodAttribute.cs" />
     <Compile Include="AjaxHubScriptProvider.cs" />
-    <Compile Include="DiscoveryInformation.cs" />
+    <Compile Include="AjaxHubMethodSignature.cs" />
     <Compile Include="IMethodStubWriter.cs" />
     <Compile Include="MethodSignatureAssemblyParser.cs" />
     <Compile Include="MethodStubWriterDefault.cs" />

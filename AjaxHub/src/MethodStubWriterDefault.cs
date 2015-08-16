@@ -5,7 +5,7 @@ namespace AjaxHub
 {
 	public class MethodStubWriterDefault : IMethodStubWriter
 	{
-		public void Resolve(TextWriter writer, IEnumerable<DiscoveryInformation> informations)
+		public void Resolve(TextWriter writer, IEnumerable<AjaxHubMethodSignature> informations)
 		{
 			
 		}

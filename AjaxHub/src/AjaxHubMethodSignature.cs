@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace AjaxHub
 {
-	public class DiscoveryInformation
+	public class AjaxHubMethodSignature
 	{
-		public DiscoveryInformation(Type issuedType, MethodInfo methodInfo, AjaxHubMethodAttribute methodAttribute, AjaxHubControllerAttribute controllerAttribute)
+		public AjaxHubMethodSignature(Type issuedType, MethodInfo methodInfo, AjaxHubMethodAttribute methodAttribute, AjaxHubControllerAttribute controllerAttribute)
 		{
 			IssuedType = issuedType;
 			MethodInfo = methodInfo;
@@ -18,9 +18,16 @@ namespace AjaxHub
 		public AjaxHubMethodAttribute MethodAttribute { get; set; }
 		public AjaxHubControllerAttribute ControllerAttribute { get; set; }
 
+		private string[] _emptyArgumentNames = new string[0];
+
+		public string[] ArgumentNames
+		{
+			get { return MethodAttribute != null &&  MethodAttribute.ParsedArgumentNames != null ? MethodAttribute.ParsedArgumentNames : _emptyArgumentNames; }
+		}
+
 		public string ActionName
 		{
-			get { return MethodAttribute != null && MethodAttribute.Name != null ? MethodAttribute.Name : MethodInfo.Name; }
+			get { return MethodAttribute != null && MethodAttribute.MethodName != null ? MethodAttribute.MethodName : MethodInfo.Name; }
 		}
 
 		public string ControllerName

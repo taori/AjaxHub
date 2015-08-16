@@ -71,4 +71,22 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 	}
+
+	public class TestClassArgumentNames
+	{
+		public const string Method1RenameValue = "DifferentName";
+		public void MethodNoAttribute(string a, int b)
+		{
+		}
+
+		[AjaxHubMethod(Method1RenameValue, "a,b")]
+		public void Method1(string a, int b)
+		{
+		}
+
+		[AjaxHubMethod(MethodParameterNames = "d,e,f")]
+		public void Method2(string d, int e, object f)
+		{
+		}
+	}
 }
