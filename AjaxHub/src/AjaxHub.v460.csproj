@@ -32,6 +32,10 @@
     <BaseIntermediateOutputPath>.\obj\$(TargetFrameworkVersion)\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,14 +48,13 @@
   <ItemGroup>
     <Compile Include="AjaxHubControllerAttribute.cs" />
     <Compile Include="AjaxHubMethodAttribute.cs" />
-    <Compile Include="AjaxHubScriptProvider.cs" />
-    <Compile Include="AjaxHubMethodSignature.cs" />
-    <Compile Include="IMethodStubWriter.cs" />
+    <Compile Include="IAjaxHubAdapter.cs" />
     <Compile Include="MethodSignatureAssemblyParser.cs" />
-    <Compile Include="MethodStubWriterDefault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

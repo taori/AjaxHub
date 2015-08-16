@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace AjaxHub
@@ -10,43 +11,26 @@ namespace AjaxHub
 		{
 		}
 
-		public AjaxHubMethodAttribute(string methodName)
+		public AjaxHubMethodAttribute(string name)
 		{
-			MethodName = methodName;
+			Name = name;
 		}
 
-		public AjaxHubMethodAttribute(string methodName, string methodParameterNames)
+		public AjaxHubMethodAttribute(string name, string parameterNames)
 		{
-			MethodName = methodName;
-			MethodParameterNames = methodParameterNames;
+			Name = name;
+			ParameterNames = parameterNames;
 		}
 
-		public string MethodName { get; set; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// This parameter requires a list of the argument names of a method signature in a pattern like "a,b,c"
 		/// </summary>
-		public string MethodParameterNames { get; set; }
+		public string ParameterNames { get; set; }
 
-		private string[] _parsedArgumentNames;
-
-		public string[] ParsedArgumentNames
+		public virtual void OnSignatureSerialized(IDictionary<string, object> values, AjaxHubServices services)
 		{
-			get
-			{
-				if (_parsedArgumentNames != null)
-					return _parsedArgumentNames;
-
-				_parsedArgumentNames = SplitNames(MethodParameterNames);
-				return _parsedArgumentNames;
-			}
-		}
-
-		private static readonly Regex SplitPattern = new Regex("[,;\\.]", RegexOptions.Compiled);
-
-		internal static string[] SplitNames(string arguments)
-		{
-			return SplitPattern.Split(arguments);
 		}
 	}
 }
