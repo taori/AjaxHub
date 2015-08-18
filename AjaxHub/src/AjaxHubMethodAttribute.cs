@@ -28,7 +28,7 @@ namespace AjaxAction
 		/// </summary>
 		public string ParameterNames { get; set; }
 
-		public virtual void OnSignatureSerialized(IDictionary<string, object> values, AjaxHubServices services)
+		public virtual void OnSignatureSerialized(IDictionary<string, object> values, AjaxHubBase hub)
 		{
 		}
 	}

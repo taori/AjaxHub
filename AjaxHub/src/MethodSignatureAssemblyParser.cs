@@ -71,7 +71,7 @@ namespace AjaxAction
 
 		public virtual bool IsValidController(Type type)
 		{
-			return type.Name.EndsWith("Controller") || type.GetCustomAttribute<AjaxHubControllerAttribute>() != null;
+			return type.Name.EndsWith(NameController) || type.GetCustomAttribute<AjaxHubControllerAttribute>() != null;
 		}
 
 		public virtual MethodSignature Create(Type type, MethodInfo method)
@@ -109,7 +109,7 @@ namespace AjaxAction
 			if (attr != null && attr.Name != null)
 				return attr.Name;
 
-			if (type.Name.EndsWith("Controller"))
+			if (type.Name.EndsWith(NameController))
 				return type.Name.Substring(0, type.Name.Length - 10);
 
 			return type.Name;
@@ -133,6 +133,8 @@ namespace AjaxAction
 
 		private static readonly Regex SplitPattern = new Regex("[,;\\.]", RegexOptions.Compiled);
 		private static string[] _noArguments = new string[0];
+		private static readonly string NameController = "Controller";
+
 		public virtual string[] SplitNames(string arguments)
 		{
 			if (arguments == null)

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -11,16 +12,17 @@ namespace AjaxAction
 {
 	public interface ISignatureJavascriptSerializer
 	{
-		IDictionary<string, object> SerializeCallValues(MethodSignature signature, AjaxHubServices services);
+		IDictionary<string, object> SerializeCallValues(MethodSignature signature, AjaxHubBase hub);
 		string BuildArgumentDelegationObject(MethodSignature signature);
 	}
 
 	public class SignatureJavascriptSerializerBase : ISignatureJavascriptSerializer
 	{
-		public IDictionary<string, object> SerializeCallValues(MethodSignature signature, AjaxHubServices services)
+		public virtual IDictionary<string, object> SerializeCallValues(MethodSignature signature, AjaxHubBase hub)
 		{
 			var result = new Dictionary<string, object>();
-			result.Add("url", services.UrlResolver.Resolve(signature.ControllerName, signature.ActionName, null));
+			var urlResolver = hub.GetUrlResolver();
+			result.Add("url", urlResolver.Resolve(signature.ControllerName, signature.ActionName, null));
 			result.Add("action", signature.ActionName);
 			result.Add("controller", signature.ControllerName);
 			result.Add("method", signature.HttpVerb.ToString().ToUpperInvariant());
@@ -43,60 +45,39 @@ namespace AjaxAction
 			return root.ToString(Formatting.None);
 		}
 	}
-
-	public class AjaxHubServices
-	{
-		public virtual IUrlResolver UrlResolver { get; set; }
-		public virtual IConfigurationSettingsProvider Configuration { get; set; }
-	}
-
-	public interface IConfigurationSettingsProvider
+	
+	public interface IAppSettingsProvider
 	{
 		object Get(string key, object defaultValue);
 	}
 
-	public interface IAjaxHubAdapter
+	public abstract class AjaxHubBase 
 	{
-		AjaxHubServices GetHubServices();
-		ISignatureScanner CreateScanner();
-	}
-
-    public abstract class AjaxHubAdapterBase : IAjaxHubAdapter
-	{
-		public abstract AjaxHubServices GetHubServices();
-
-		public virtual ISignatureScanner CreateScanner()
+		protected virtual ISignatureScanner CreateScanner()
 		{
 			return new SignatureScannerBase();
 		}
-	}
 
-	public class AjaxHub 
-	{
-		public AjaxHub(IAjaxHubAdapter adapter)
+		protected abstract IUrlResolver CreateUrlResolver();
+		protected abstract IAppSettingsProvider CreateAppSettingsProvider();
+
+		private IUrlResolver _urlResolver;
+		public virtual IUrlResolver GetUrlResolver()
 		{
-			_adapter = adapter;
+			return _urlResolver ?? (_urlResolver = this.CreateUrlResolver());
+		}
+
+		private IAppSettingsProvider _appSettingsProvider;
+		public virtual IAppSettingsProvider GetAppSettingsProvider()
+		{
+			return _appSettingsProvider ?? (_appSettingsProvider = this.CreateAppSettingsProvider());
 		}
 
 		private static readonly List<Assembly> RegisteredAssemblies = new List<Assembly>();
 
-		private IAjaxHubAdapter _adapter;
-
 		public static void Register(Assembly assembly)
 		{
 			RegisteredAssemblies.Add(assembly);
-		}
-
-		public IAjaxHubAdapter Adapter
-		{
-			get
-			{
-				if(_adapter == null)
-					throw new Exception("AjaxHub.Adapter must be set.");
-
-				return _adapter;
-			}
-			set { _adapter = value; }
 		}
 
 		public static void ResetHubMethodCache()
@@ -110,9 +91,6 @@ namespace AjaxAction
 		{
 			if (_renderedHubMethods != null)
 				return _renderedHubMethods;
-
-            if (Adapter.GetHubServices() == null)
-				throw new ArgumentException("hubServices", "hubServices");
 
 			var writer = new StringWriter();
 			writer.Write(RenderHubCaller());
@@ -132,13 +110,19 @@ namespace AjaxAction
 var AjaxHubCallRequestStart = function(s){};
 var AjaxHubCallRequestDone = function(s){};
 var AjaxHubCallStatistics = { runningRequests : 0};
-var AjaxHubRequestContainer = null;
+var AjaxHubRequestContainer;
+
+var AjaxHubInitialized = false;
 
 var AjaxHubCall = function(serializedOptions){
 
-	if(AjaxHubRequestContainer == null){
+debugger;
+
+	if(!AjaxHubInitialized) {
 		AjaxHubRequestContainer = $('<div id=""AjaxHubRequestContainer"" style=""display: none;""><div>');
 		$('body').eq(0).append(AjaxHubRequestContainer);
+
+		AjaxHubInitialized = true;
 	}
 
 	AjaxHubCallStatistics.runningRequests++;
@@ -165,13 +149,8 @@ var AjaxHubCall = function(serializedOptions){
 
 		public IEnumerable<MethodSignature> GetAssemblySignatures()
 		{
-			var scanner = GetSignatureScanner();
+			var scanner = CreateScanner();
 			return RegisteredAssemblies.SelectMany(assembly => scanner.Scan(assembly));
-		}
-
-		public ISignatureScanner GetSignatureScanner()
-		{
-			return Adapter.CreateScanner();
 		}
 
 		public string RenderHubFunctions(IEnumerable<MethodSignature> signatures)
@@ -179,9 +158,9 @@ var AjaxHubCall = function(serializedOptions){
 			var writer = new StringWriter();
 			var serializer = CreateSignatureSerializer();
 			var signaturesGrouped = signatures.GroupBy(d => d.ControllerName);
-			var adapterServices = Adapter.GetHubServices();
+			var appSettingsProvider = GetAppSettingsProvider();
 
-			var ajaxHubJsShortcut = adapterServices.Configuration.Get("AjaxHubShortcutName", "AjaxHub");
+			var ajaxHubJsShortcut = appSettingsProvider.Get("AjaxHubShortcutName", "AjaxHub");
 
 			writer.WriteLine("var {0} = {{", ajaxHubJsShortcut);
 			var controllerCount = signaturesGrouped.Count();
@@ -200,8 +179,8 @@ var AjaxHubCall = function(serializedOptions){
                 for (int index = 0; index < currentControllerSignatures.Count; index++)
 				{
 					var signature = currentControllerSignatures[index];
-					var valueCollection = serializer.SerializeCallValues(signature, adapterServices);
-					signature.OnSignatureSerialized(valueCollection, adapterServices);
+					var valueCollection = serializer.SerializeCallValues(signature, this);
+					signature.OnSignatureSerialized(valueCollection, this);
 					var serializedSignatureINfo = JsonConvert.SerializeObject(valueCollection);
 					var parameterDelegationObject = serializer.BuildArgumentDelegationObject(signature);
 
@@ -236,6 +215,113 @@ var AjaxHubCall = function(serializedOptions){
 				return string.Join(", ", signature.MethodArgumentNames);
 
 			return string.Empty;
+		}
+	}
+
+	public class EncodableStringWriter : StringWriter
+	{
+		public EncodableStringWriter(Encoding encoding)
+		{
+			this.Encoding = encoding;
+		}
+
+		public override Encoding Encoding { get; }
+	}
+
+	public class AjaxResponseUtility
+	{
+		private readonly StringWriter _writer;
+
+		public AjaxResponseUtility(StringWriter writer)
+		{
+			_writer = writer;
+		}
+
+		public Guid AddContentContainer(string content)
+		{
+			var guid = Guid.NewGuid();
+			_writer.Write("<div id='{1}'>{0}</div>", content, guid);
+
+			return guid;
+		}
+
+		public void AddScriptBlock(string content)
+		{
+			_writer.Write("<script type='text/javascript'>{0}</script>", content);
+		}
+	}
+
+	public class AjaxActionResponse
+	{
+		public string GetFullResponseContent()
+		{
+			return _writer.ToString();
+		}
+
+		protected virtual AjaxResponseUtility CreateUtility()
+		{
+			return new AjaxResponseUtility(_writer);
+		}
+
+		public AjaxActionResponse() : this(Encoding.UTF8)
+		{
+		}
+
+		public AjaxActionResponse(Encoding encoding)
+		{
+			_writer = new EncodableStringWriter(encoding);
+		}
+
+		protected readonly EncodableStringWriter _writer;
+
+		private AjaxResponseUtility _utility;
+
+		/// <summary>
+		/// This property exists to allow ExtensionMethods to manipulate the response
+		/// </summary>
+		public AjaxResponseUtility Utility
+		{
+			get { return _utility ?? (_utility = CreateUtility()); }
+		}
+
+		public void AddScript(string script)
+		{
+			Utility.AddScriptBlock(script);
+		}
+
+		public void Append(string selector, string content)
+		{
+			var containerGuid = Utility.AddContentContainer(content);
+			Utility.AddScriptBlock(string.Format("$('#{0}').appendTo($('{1}'));", containerGuid, selector));
+		}
+
+		public void Remove(string selector)
+		{
+			Utility.AddScriptBlock(string.Format("$('{0}').remove();", selector));
+		}
+
+		public void Prepend(string selector, string content)
+		{
+			var containerGuid = Utility.AddContentContainer(content);
+			Utility.AddScriptBlock(string.Format("$('#{0}').prependTo($('{1}'));", containerGuid, selector));
+		}
+
+		public void InsertAfter(string selector, string content)
+		{
+			var containerGuid = Utility.AddContentContainer(content);
+			Utility.AddScriptBlock(string.Format("$('#{0}').insertAfter($('{1}'));", containerGuid, selector));
+		}
+
+		public void ReplaceWith(string selector, string content)
+		{
+			var containerGuid = Utility.AddContentContainer(content);
+			Utility.AddScriptBlock(string.Format("$('{1}').replaceWith($('#{0}'));", containerGuid, selector));
+		}
+
+		public void ReplaceAll(string selector, string content)
+		{
+			var containerGuid = Utility.AddContentContainer(content);
+			Utility.AddScriptBlock(string.Format("$('#{0}').replaceAll($('{1}'));", containerGuid, selector));
 		}
 	}
 
@@ -308,9 +394,9 @@ var AjaxHubCall = function(serializedOptions){
 			return string.Format("signature {0}.{1}", ControllerName, ActionName);
 		}
 
-		public void OnSignatureSerialized(IDictionary<string, object> values, AjaxHubServices services)
+		public void OnSignatureSerialized(IDictionary<string, object> values, AjaxHubBase hub)
 		{
-			MethodAttribute.OnSignatureSerialized(values, services);
+			MethodAttribute.OnSignatureSerialized(values, hub);
 		}
 	}
 }

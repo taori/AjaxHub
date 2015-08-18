@@ -13,7 +13,7 @@ namespace Sandbox.Asp46
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			AjaxAction.AjaxHub.Register(typeof(MvcApplication).Assembly);
+			AjaxAction.AjaxHubBase.Register(typeof(MvcApplication).Assembly);
 		}
 	}
 }

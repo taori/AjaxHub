@@ -7,25 +7,22 @@ namespace AjaxHub.v460.Test.Environment
 	{
 		public static class OfTypeAjaxHub
 		{
-			public static AjaxAction.AjaxHub Default()
+			public static AjaxHubBase Default()
 			{
-				var adapter = new Mock<IAjaxHubAdapter>();
-				var services = new Mock<AjaxHubServices>();
-				var configrationProvider = new Mock<IConfigurationSettingsProvider>();
+				var hub = new Mock<AjaxHubBase>();
+
+				var appSettingsProvider = new Mock<IAppSettingsProvider>();
 				var urlResolver = new Mock<IUrlResolver>();
-
+				
 				urlResolver.Setup(d => d.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>())).Returns<string, string, object>((a, b, c) => $"{a}/{b}");
-				configrationProvider.Setup(d => d.Get(It.IsAny<string>(), It.IsAny<object>())).Returns<string, object>((a, b) => b );
+				appSettingsProvider.Setup(d => d.Get(It.IsAny<string>(), It.IsAny<object>())).Returns<string, object>((a, b) => b );
 
-				services.Setup(d => d.Configuration).Returns(configrationProvider.Object);
-				services.Setup(d => d.UrlResolver).Returns(urlResolver.Object);
 
-				adapter.Setup(d => d.CreateScanner()).Returns(new SignatureScannerBase());
-				adapter.Setup(d => d.GetHubServices()).Returns(services.Object);
-				var hub = new AjaxAction.AjaxHub(adapter.Object);
-
-				return hub;
-
+				hub.Setup(d => d.GetAppSettingsProvider()).Returns(appSettingsProvider.Object);
+				hub.Setup(d => d.GetUrlResolver()).Returns(urlResolver.Object);
+				hub.Setup(d => d.CreateSignatureSerializer()).Returns(new SignatureJavascriptSerializerBase());
+				
+				return hub.Object;
 			}
 		}
 	}

@@ -1,15 +1,30 @@
 ﻿using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AjaxAction;
 
 namespace Sandbox.Asp46.AjaxHub
 {
+
+	public class AjaxHub : AjaxHubBase
+	{
+		protected override IUrlResolver CreateUrlResolver()
+		{
+			return new UrlResolver(new UrlHelper(HttpContext.Current.Request.RequestContext));
+		}
+
+		protected override IAppSettingsProvider CreateAppSettingsProvider()
+		{
+			return new AppSettingsProvider();
+		}
+	}
+
 	public static class AjaxHubExtensions
 	{
 		public static IHtmlString RegisterHub(this HtmlHelper source, bool renderScriptTags = true)
 		{
-			var hub = new AjaxAction.AjaxHub(new AjaxHubAdapterMvc5());
+			var hub = new AjaxHub();
 
 			if(renderScriptTags)
 			{
@@ -22,18 +37,7 @@ namespace Sandbox.Asp46.AjaxHub
 		}
 	}
 
-	public class AjaxHubAdapterMvc5 : AjaxHubAdapterBase
-	{
-		public override AjaxHubServices GetHubServices()
-		{
-			var hubServices = new AjaxHubServices();
-			hubServices.Configuration = new ConfigurationSettingsProvider();
-			hubServices.UrlResolver = new UrlResolver(new UrlHelper(HttpContext.Current.Request.RequestContext));
-            return hubServices;
-		}
-	}
-
-	public class ConfigurationSettingsProvider : IConfigurationSettingsProvider
+	public class AppSettingsProvider : IAppSettingsProvider
 	{
 		public object Get(string key, object defaultValue)
 		{

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
 using AjaxAction;
@@ -34,17 +35,26 @@ namespace Sandbox.Asp46.Controllers
 		}
 
 		[AjaxHubMethod(ParameterNames = "a,delay")]
-		public ActionResult TestMethodB(string[] a, int delay)
+		public ActionResult TestMethodB(string a, int delay)
 		{
-			return Content(string.Format("<script type='text/javascript'>alert('{0}');</script>", string.Join(", ", a)));
+			var response = new AjaxActionResponse();
+			var bodyContent = DateTime.Now.ToString();
+
+//			ViewEngineResult result = ViewEngineCollection.FindView(ControllerContext, "Index", null);
+//			if (result.View != null)
+//			{
+//				return result;
+//			}
+//			ViewResult d;
+//			IView v;
+
+
+			response.Append("body", bodyContent);
+			response.AddScript(string.Format("alert('{0}');", a));
+			response.AddScript(string.Format("alert('{0}');", delay));
+			var content = response.GetFullResponseContent();
+
+			return Content(content);
 		}
 	}
-
-	public class AjaxActionResponse
-	{
-		protected AjaxAction.AjaxHub Create()
-		{
-			return new AjaxAction.AjaxHub(new AjaxHubAdapterMvc5());
-		}
-    }
 }
