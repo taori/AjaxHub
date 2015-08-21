@@ -55,7 +55,7 @@ namespace AjaxAction
 			}
 		}
 
-		public bool IsValidSignature(MethodSignature signature)
+		public virtual bool IsValidSignature(MethodSignature signature)
 		{
 			return !string.IsNullOrEmpty(signature.ControllerName)
 				&& !string.IsNullOrEmpty(signature.ActionName)

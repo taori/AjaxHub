@@ -1,14 +1,14 @@
 using System;
 using System.Reflection;
 
-namespace AjaxHub
+namespace AjaxAction
 {
 
 #if NET40
 
 	public static class ReflectionExtensions
 	{
-		public static T GetCustomAttribute<T>(this MethodInfo source) where T : Attribute
+		public static T GetCustomAttribute<T>(this MemberInfo source) where T : Attribute
 		{
 			var attributes = source.GetCustomAttributes(typeof (T), true);
 			if (attributes.Length == 0)

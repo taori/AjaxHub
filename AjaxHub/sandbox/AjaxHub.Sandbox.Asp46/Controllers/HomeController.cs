@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using AjaxAction;
+using Microsoft.Ajax.Utilities;
 using Sandbox.Asp46.AjaxHub;
 
 namespace Sandbox.Asp46.Controllers
@@ -33,28 +36,23 @@ namespace Sandbox.Asp46.Controllers
 		{
 			return Content("hi");
 		}
+		
+		public ActionResult TestMethodC()
+		{
+			return Content("i need to stop vulgar testmessages<script type='text/javascript'>alert(\"because github is just the wrong place for it.\");</script>");
+		}
 
 		[AjaxHubMethod(ParameterNames = "a,delay")]
 		public ActionResult TestMethodB(string a, int delay)
 		{
 			var response = new AjaxActionResponse();
-			var bodyContent = DateTime.Now.ToString();
 
-//			ViewEngineResult result = ViewEngineCollection.FindView(ControllerContext, "Index", null);
-//			if (result.View != null)
-//			{
-//				return result;
-//			}
-//			ViewResult d;
-//			IView v;
-
-
-			response.Append("body", bodyContent);
+			var content = response.GetActionContent(ControllerContext, helper => helper.Action("TestMethodC").ToString());
 			response.AddScript(string.Format("alert('{0}');", a));
 			response.AddScript(string.Format("alert('{0}');", delay));
-			var content = response.GetFullResponseContent();
+			response.SetContent("body", content);
 
-			return Content(content);
+			return response;
 		}
 	}
 }

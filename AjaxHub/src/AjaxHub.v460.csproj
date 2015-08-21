@@ -46,14 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjaxActionResponseBase.cs" />
+    <Compile Include="AjaxHubBase.cs" />
     <Compile Include="AjaxHubControllerAttribute.cs" />
     <Compile Include="AjaxHubMethodAttribute.cs" />
-    <Compile Include="IAjaxHubAdapter.cs" />
+    <Compile Include="AjaxResponseUtility.cs" />
+    <Compile Include="EncodableStringWriter.cs" />
+    <Compile Include="HttpVerb.cs" />
+    <Compile Include="MethodSignature.cs" />
+    <Compile Include="IAppSettingsProvider.cs" />
+    <Compile Include="ISignatureJavascriptSerializer.cs" />
+    <Compile Include="ISignatureScanner.cs" />
+    <Compile Include="IUrlResolver.cs" />
     <Compile Include="MethodSignatureAssemblyParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignatureJavascriptSerializerBase.cs" />
+    <Compile Include="SignatureScannerException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.AjaxHub.v460.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
