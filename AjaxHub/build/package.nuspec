@@ -3,17 +3,20 @@
 	<metadata>
 		<id>PACKAGEID</id>
 		<version>1.2.3</version>
-		<authors>AUTHOR</authors>
-		<owners>OWNERS</owners>
-		<description>DESCRIPTION</description>
+		<authors>Andreas Müller</authors>
+		<owners>Andreas Müller</owners>
+		<description>Coredependencies required to create a MVC version specific AjaxHub</description>
 		<language>en-US</language>
-		<projectUrl>http://xunit.codeplex.com/</projectUrl>
-		<licenseUrl>http://xunit.codeplex.com/license</licenseUrl>
-		<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
-		<tags>TAG1 TAG2</tags>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<projectUrl>https://github.com/taori/AjaxHub</projectUrl>
+		<licenseUrl>https://github.com/taori/AjaxHub/LICENSE.MD</licenseUrl>
+		<iconUrl>https://github.com/taori/AjaxHub/icon.png</iconUrl>
+		<tags>xajax mvc ajaxhub ajaxaction</tags>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 	</metadata>
 	<files>
 		<file src="binaries\Release\lib\**" target="lib" />
 	</files>
+	<dependencies>		
+		<dependency id="Newtonsoft.Json" version="(6.0,)" />
+	</dependencies>
 </package>
