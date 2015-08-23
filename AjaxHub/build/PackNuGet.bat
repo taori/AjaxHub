@@ -1,7 +1,7 @@
 @echo off
 
 SET NUGET=NuGet.exe
-SET OUTDIR=..\build\packages
+SET OUTDIR=.\packages
 SET /p VER= <package.publish.version.txt
 SET /p PACKNAME= <package.publish.name.txt
 SET /p APK= <package.publish.apiKey.txt

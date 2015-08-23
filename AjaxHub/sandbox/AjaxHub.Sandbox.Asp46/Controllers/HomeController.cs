@@ -31,7 +31,7 @@ namespace Sandbox.Asp46.Controllers
 			return View();
 		}
 
-		[AjaxHubMethod]
+		[AjaxHubAction]
 		public ActionResult TestMethodA()
 		{
 			return Content("hi");
@@ -42,7 +42,7 @@ namespace Sandbox.Asp46.Controllers
 			return Content("i need to stop vulgar testmessages<script type='text/javascript'>alert(\"because github is just the wrong place for it.\");</script>");
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,delay")]
+		[AjaxHubAction(ParameterNames = "a,delay")]
 		public ActionResult TestMethodB(string a, int delay)
 		{
 			var response = new AjaxActionResponse();

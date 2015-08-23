@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,18 +15,11 @@ namespace AjaxAction
 		}
 
 		protected abstract IUrlResolver CreateUrlResolver();
-		protected abstract IAppSettingsProvider CreateAppSettingsProvider();
 
 		private IUrlResolver _urlResolver;
 		public virtual IUrlResolver GetUrlResolver()
 		{
 			return _urlResolver ?? (_urlResolver = this.CreateUrlResolver());
-		}
-
-		private IAppSettingsProvider _appSettingsProvider;
-		public virtual IAppSettingsProvider GetAppSettingsProvider()
-		{
-			return _appSettingsProvider ?? (_appSettingsProvider = this.CreateAppSettingsProvider());
 		}
 
 		private static readonly List<Assembly> RegisteredAssemblies = new List<Assembly>();
@@ -48,7 +42,6 @@ namespace AjaxAction
 				return _renderedHubMethods;
 
 			var writer = new StringWriter();
-			writer.Write(RenderHubCaller());
 			writer.Write(RenderHubFunctions(GetAssemblySignatures()));
 
 			return _renderedHubMethods = writer.ToString();
@@ -59,49 +52,6 @@ namespace AjaxAction
 			return new SignatureJavascriptSerializerBase();
 		}
 
-		public virtual string RenderHubCaller()
-		{
-			return @"
-var AjaxHubCallRequestStart = function(s){};
-var AjaxHubCallRequestDone = function(s){};
-var AjaxHubCallStatistics = { runningRequests : 0};
-var AjaxHubRequestContainer;
-
-var AjaxHubInitialized = false;
-
-var AjaxHubCall = function(serializedOptions){
-
-debugger;
-
-	if(!AjaxHubInitialized) {
-		AjaxHubRequestContainer = $('<div id=""AjaxHubRequestContainer"" style=""display: none;""><div>');
-		$('body').eq(0).append(AjaxHubRequestContainer);
-
-		AjaxHubInitialized = true;
-	}
-
-	AjaxHubCallStatistics.runningRequests++;
-	AjaxHubCallRequestStart(serializedOptions);
-
-	var $executionTarget = $('<div></div>');
-	AjaxHubRequestContainer.append($executionTarget);
-
-	$.ajax({
-		'url' : serializedOptions.signature.url,
-		'data' : serializedOptions.values,
-		'traditional' : true,
-		'method' : serializedOptions.signature.method
-	}).done(function(data){
-		$executionTarget.append(data);
-		$executionTarget.remove();
-		$executionTarget = null;
-
-		AjaxHubCallStatistics.runningRequests--;
-		AjaxHubCallRequestDone(serializedOptions);
-	});	
-};";
-		}
-
 		public IEnumerable<MethodSignature> GetAssemblySignatures()
 		{
 			var scanner = CreateScanner();
@@ -110,14 +60,12 @@ debugger;
 
 		public string RenderHubFunctions(IEnumerable<MethodSignature> signatures)
 		{
+			// todo maybe a build talk can persist this into a javascript/d.ts file so IDE delivers auto completion
 			var writer = new StringWriter();
 			var serializer = CreateSignatureSerializer();
 			var signaturesGrouped = signatures.GroupBy(d => d.ControllerName);
-			var appSettingsProvider = GetAppSettingsProvider();
 
-			var ajaxHubJsShortcut = appSettingsProvider.Get("AjaxHubShortcutName", "AjaxHub");
-
-			writer.WriteLine("var {0} = {{", ajaxHubJsShortcut);
+			writer.WriteLine("$.extend(AjaxHub, {");
 			var controllerCount = signaturesGrouped.Count();
 			var controllerIndex = 0;
 
@@ -138,15 +86,16 @@ debugger;
 					signature.OnSignatureSerialized(valueCollection, this);
 					var serializedSignatureINfo = JsonConvert.SerializeObject(valueCollection);
 					var parameterDelegationObject = serializer.BuildArgumentDelegationObject(signature);
+					var signatureArgumentCount = signature.MethodArgumentNames.Length;
 
 					var jsParamList = GetJavascriptParameterCallList(signature);
 					if (index < lastIndex)
 					{
-						writer.WriteLine("  '{0}' : function({2}) {{ AjaxHubCall({{'signature' : {1}, 'values' : {3}}}); }},", signature.ActionName, serializedSignatureINfo, jsParamList, parameterDelegationObject);
+						writer.WriteLine("  '{0}' : function({2}) {{ AjaxHub._Invoker.execute({{'signature' : {1}, 'values' : {3}, 'extraArguments' : Array.prototype.slice.call(arguments, " + signatureArgumentCount + ") }}); }},", signature.ActionName, serializedSignatureINfo, jsParamList, parameterDelegationObject);
 					}
 					else
 					{
-						writer.WriteLine("  '{0}' : function({2}) {{ AjaxHubCall({{'signature' : {1}, 'values' : {3}}}); }}", signature.ActionName, serializedSignatureINfo, jsParamList, parameterDelegationObject);
+						writer.WriteLine("  '{0}' : function({2}) {{ AjaxHub._Invoker.execute({{'signature' : {1}, 'values' : {3}, 'extraArguments' : Array.prototype.slice.call(arguments, " + signatureArgumentCount + ") }}); }}", signature.ActionName, serializedSignatureINfo, jsParamList, parameterDelegationObject);
 					}
 				}
 
@@ -159,12 +108,12 @@ debugger;
 					writer.WriteLine(" }");
 				}
 			}
-			writer.WriteLine("};");
+			writer.WriteLine("});");
 
 			return writer.ToString();
 		}
 
-		public virtual string GetJavascriptParameterCallList(MethodSignature signature)
+		public string GetJavascriptParameterCallList(MethodSignature signature)
 		{
 			if(signature.MethodArgumentNames != null && signature.MethodArgumentNames.Length > 0)
 				return string.Join(", ", signature.MethodArgumentNames);

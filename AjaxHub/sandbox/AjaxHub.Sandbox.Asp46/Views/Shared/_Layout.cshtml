@@ -1,4 +1,5 @@
 ﻿@using Sandbox.Asp46.AjaxHub
+@using Sandbox.Asp46.Controllers
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,8 @@
     <title>@ViewBag.Title - Meine ASP.NET-Anwendung</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/AjaxHub/AjaxHub.js")"></script>
 	@Html.RegisterHub()
 </head>
 <body>
@@ -30,13 +33,14 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Meine ASP.NET-Anwendung</p>
-        </footer>
-    </div>
+<div class="container body-content">
+	<button onclick="AjaxHub.Home.@(nameof(HomeController.TestMethodB))('some text', 42)">execute ajax hub call @(nameof(HomeController.TestMethodB))</button>
+	@RenderBody()
+	<hr/>
+	<footer>
+		<p>&copy; @DateTime.Now.Year - Meine ASP.NET-Anwendung</p>
+	</footer>
+</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

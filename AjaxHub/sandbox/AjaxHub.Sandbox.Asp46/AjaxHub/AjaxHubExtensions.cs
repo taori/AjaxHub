@@ -42,11 +42,6 @@ namespace Sandbox.Asp46.AjaxHub
 		{
 			return new UrlResolver(new UrlHelper(HttpContext.Current.Request.RequestContext));
 		}
-
-		protected override IAppSettingsProvider CreateAppSettingsProvider()
-		{
-			return new AppSettingsProvider();
-		}
 	}
 
 	public static class AjaxHubExtensions
@@ -63,15 +58,6 @@ namespace Sandbox.Asp46.AjaxHub
 			{
 				return new MvcHtmlString(hub.RenderHub());
 			}
-		}
-	}
-
-	public class AppSettingsProvider : IAppSettingsProvider
-	{
-		public object Get(string key, object defaultValue)
-		{
-			var value = ConfigurationManager.AppSettings[key];
-			return value ?? defaultValue;
 		}
 	}
 

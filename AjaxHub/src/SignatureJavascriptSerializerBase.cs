@@ -15,6 +15,8 @@ namespace AjaxAction
 			result.Add("controller", signature.ControllerName);
 			result.Add("method", signature.HttpVerb.ToString().ToUpperInvariant());
 			result.Add("argumentNames", signature.MethodArgumentNames);
+			result.Add("callBefore", signature.MethodAttribute.CallBefore);
+			result.Add("callAfter", signature.MethodAttribute.CallAfter);
 
 			return result;
 		}

@@ -19,7 +19,7 @@ namespace AjaxAction
 		{
 			get
 			{
-				return string.Format("There is a signature mismatch for \"{0}\" - \"{1}\". Make sure you specify a parameterlist in \"{2}\" if your method contains parameters", Type.FullName, MethodInfo.Name, typeof(AjaxHubMethodAttribute).Name);
+				return string.Format("There is a signature mismatch for \"{0}\" - \"{1}\". Make sure you specify a parameterlist in \"{2}\" if your method contains parameters", Type.FullName, MethodInfo.Name, typeof(AjaxHubActionAttribute).Name);
 			}
 		}
 	}

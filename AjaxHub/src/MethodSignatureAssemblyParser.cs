@@ -65,7 +65,7 @@ namespace AjaxAction
 		public bool IsSearchMatch(Type type, MethodInfo method)
 		{
 			var controllerType = IsValidController(type);
-			var hasMethodAttribute = method.GetCustomAttribute<AjaxHubMethodAttribute>() != null;
+			var hasMethodAttribute = method.GetCustomAttribute<AjaxHubActionAttribute>() != null;
 			return controllerType && hasMethodAttribute;
 		}
 
@@ -76,7 +76,7 @@ namespace AjaxAction
 
 		public virtual MethodSignature Create(Type type, MethodInfo method)
 		{
-			var methodAttribute = GetAttributeOrThrow<AjaxHubMethodAttribute>(method);
+			var methodAttribute = GetAttributeOrThrow<AjaxHubActionAttribute>(method);
 
 			var controllerName = GetControllerName(type);
 			var actionName = GetActionName(type, method);
@@ -87,14 +87,14 @@ namespace AjaxAction
 
 		protected virtual string[] GetArgumentNames(MethodInfo method)
 		{
-			var attr = GetAttributeOrThrow<AjaxHubMethodAttribute>(method);
+			var attr = GetAttributeOrThrow<AjaxHubActionAttribute>(method);
 
 			return SplitNames(attr.ParameterNames);
 		}
 
 		protected virtual string GetActionName(Type type, MethodInfo method)
 		{
-			var attr = GetAttributeOrThrow<AjaxHubMethodAttribute>(method);
+			var attr = GetAttributeOrThrow<AjaxHubActionAttribute>(method);
 			
 			if (attr.Name != null)
 				return attr.Name;

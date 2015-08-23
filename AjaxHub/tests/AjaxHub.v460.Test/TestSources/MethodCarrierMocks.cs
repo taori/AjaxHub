@@ -9,12 +9,12 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b")]
+		[AjaxHubAction(ParameterNames = "a,b")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b,c")]
+		[AjaxHubAction(ParameterNames = "a,b,c")]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -26,12 +26,12 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b")]
+		[AjaxHubAction(ParameterNames = "a,b")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b,c")]
+		[AjaxHubAction(ParameterNames = "a,b,c")]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -45,12 +45,12 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b")]
+		[AjaxHubAction(ParameterNames = "a,b")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b,c")]
+		[AjaxHubAction(ParameterNames = "a,b,c")]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -65,12 +65,12 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "d,e")]
+		[AjaxHubAction(ParameterNames = "d,e")]
 		public void Method1(string d, int e)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "f,g,h")]
+		[AjaxHubAction(ParameterNames = "f,g,h")]
 		public void Method2(string f, int g, object h)
 		{
 		}
@@ -79,12 +79,12 @@ namespace AjaxHub.v460.Test.TestSources
 	[AjaxHubController]
 	public class TestClassSignatureThrowNoParameters
 	{
-		[AjaxHubMethod]
+		[AjaxHubAction]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod]
+		[AjaxHubAction]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -93,12 +93,12 @@ namespace AjaxHub.v460.Test.TestSources
 	[AjaxHubController]
 	public class TestClassSignatureThrowTooMany
 	{
-		[AjaxHubMethod(ParameterNames = "a,b,c")]
+		[AjaxHubAction(ParameterNames = "a,b,c")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b,c,d")]
+		[AjaxHubAction(ParameterNames = "a,b,c,d")]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -107,12 +107,12 @@ namespace AjaxHub.v460.Test.TestSources
 	[AjaxHubController]
 	public class TestClassSignatureThrowTooFew
 	{
-		[AjaxHubMethod(ParameterNames = "a")]
+		[AjaxHubAction(ParameterNames = "a")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b")]
+		[AjaxHubAction(ParameterNames = "a,b")]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -126,12 +126,12 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 
-		[AjaxHubMethod(Method1RenameValue, ParameterNames = "a,b")]
+		[AjaxHubAction(Method1RenameValue, ParameterNames = "a,b")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "a,b,c")]
+		[AjaxHubAction(ParameterNames = "a,b,c")]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -145,12 +145,12 @@ namespace AjaxHub.v460.Test.TestSources
 		{
 		}
 
-		[AjaxHubMethod(Method1RenameValue, "a,b")]
+		[AjaxHubAction(Method1RenameValue, "a,b")]
 		public void Method1(string a, int b)
 		{
 		}
 
-		[AjaxHubMethod(ParameterNames = "d,e,f")]
+		[AjaxHubAction(ParameterNames = "d,e,f")]
 		public void Method2(string d, int e, object f)
 		{
 		}

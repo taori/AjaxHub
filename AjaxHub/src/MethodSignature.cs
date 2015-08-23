@@ -6,7 +6,7 @@ namespace AjaxAction
 	[DebuggerDisplay("{ToDebug()}")]
 	public class MethodSignature
 	{
-		public MethodSignature(AjaxHubMethodAttribute methodAttribute, string controllerName, string actionName, string[] argumentNames)
+		public MethodSignature(AjaxHubActionAttribute methodAttribute, string controllerName, string actionName, string[] argumentNames)
 		{
 			MethodArgumentNames = argumentNames;
 			ActionName = actionName;
@@ -20,7 +20,7 @@ namespace AjaxAction
 		public HttpVerb HttpVerb { get; set; }
 		public string RouteSignature { get; set; }
 		public string[] MethodArgumentNames { get; private set; }
-		public AjaxHubMethodAttribute MethodAttribute { get; private set; }
+		public AjaxHubActionAttribute MethodAttribute { get; private set; }
 
 		public string ToDebug()
 		{

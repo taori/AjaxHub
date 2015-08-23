@@ -1,1 +1,1 @@
-THIS MUST BE THE SAME AS .nuspec Id
+AjaxHub.Core

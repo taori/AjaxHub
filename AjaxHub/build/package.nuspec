@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>PACKAGEID</id>
+		<id>AjaxHub.Core</id>
 		<version>1.2.3</version>
 		<authors>Andreas Müller</authors>
 		<owners>Andreas Müller</owners>
@@ -12,11 +12,15 @@
 		<iconUrl>https://github.com/taori/AjaxHub/icon.png</iconUrl>
 		<tags>xajax mvc ajaxhub ajaxaction</tags>
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<dependencies>	
+			<group>
+				<dependency id="Newtonsoft.Json" version="(6.0,)" />
+				<dependency id="jQuery" version="(1.8.3,)" />
+			</group>
+		</dependencies>
 	</metadata>
 	<files>
 		<file src="binaries\Release\lib\**" target="lib" />
+		<file src="..\src\content\**" target="content\" />
 	</files>
-	<dependencies>		
-		<dependency id="Newtonsoft.Json" version="(6.0,)" />
-	</dependencies>
 </package>
