@@ -1,7 +1,7 @@
 ﻿module AjaxHub {
 
 	export
-	class Statistics {
+	class _Statistics {
 		constructor() {
 			this.runningRequests = 0;
 		}
@@ -39,15 +39,15 @@
 			this.$executionTarget = null;
 			this.callEvent = null;
 			this.signatureCall = null;
-			Invoker.statistics.runningRequests--;
+			_Invoker.statistics.runningRequests--;
 		}
 
 		public execute(): void {
 
-			this.$executionTarget = Invoker.getRequestContainer();
+			this.$executionTarget = _Invoker.getRequestContainer();
 			this.callEvent = new CallEvent(this.signatureCall);
 
-			Invoker.statistics.runningRequests++;
+			_Invoker.statistics.runningRequests++;
 
 			if (window["AjaxHubCallRequestStart"] === "function")
 				window["AjaxHubCallRequestStart"](this.callEvent);
@@ -91,9 +91,9 @@
 	}
 
 	export 
-	class Invoker {
+	class _Invoker {
 
-		public static statistics: Statistics = new Statistics();
+		public static statistics: _Statistics = new _Statistics();
 
 		public static getRequestContainer(): JQuery {
 			var hub = $("div#AjaxHubRequestContainer");
@@ -108,7 +108,7 @@
 			return requestContainer;
 		}
 
-		public static call(options: ISignatureCall): void {
+		public static execute(options: ISignatureCall): void {
 			var request = new Request(options);
 			request.execute();
 		}

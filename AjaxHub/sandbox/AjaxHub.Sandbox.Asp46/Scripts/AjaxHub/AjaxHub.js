@@ -1,12 +1,12 @@
 var AjaxHub;
 (function (AjaxHub) {
-    var Statistics = (function () {
-        function Statistics() {
+    var _Statistics = (function () {
+        function _Statistics() {
             this.runningRequests = 0;
         }
-        return Statistics;
+        return _Statistics;
     })();
-    AjaxHub.Statistics = Statistics;
+    AjaxHub._Statistics = _Statistics;
     var CallEvent = (function () {
         function CallEvent(callSignature) {
             this.callSignature = callSignature;
@@ -28,13 +28,13 @@ var AjaxHub;
             this.$executionTarget = null;
             this.callEvent = null;
             this.signatureCall = null;
-            Invoker.statistics.runningRequests--;
+            _Invoker.statistics.runningRequests--;
         };
         Request.prototype.execute = function () {
             var _this = this;
-            this.$executionTarget = Invoker.getRequestContainer();
+            this.$executionTarget = _Invoker.getRequestContainer();
             this.callEvent = new CallEvent(this.signatureCall);
-            Invoker.statistics.runningRequests++;
+            _Invoker.statistics.runningRequests++;
             if (window["AjaxHubCallRequestStart"] === "function")
                 window["AjaxHubCallRequestStart"](this.callEvent);
             if (this.callEvent.isCanceled()) {
@@ -67,10 +67,10 @@ var AjaxHub;
         };
         return Request;
     })();
-    var Invoker = (function () {
-        function Invoker() {
+    var _Invoker = (function () {
+        function _Invoker() {
         }
-        Invoker.getRequestContainer = function () {
+        _Invoker.getRequestContainer = function () {
             var hub = $("div#AjaxHubRequestContainer");
             if (!hub || hub.length === 0) {
                 hub = $("<div id='AjaxHubRequestContainer' style='display: none;'><div>");
@@ -80,13 +80,13 @@ var AjaxHub;
             hub.append(requestContainer);
             return requestContainer;
         };
-        Invoker.call = function (options) {
+        _Invoker.execute = function (options) {
             var request = new Request(options);
             request.execute();
         };
-        Invoker.statistics = new Statistics();
-        return Invoker;
+        _Invoker.statistics = new _Statistics();
+        return _Invoker;
     })();
-    AjaxHub.Invoker = Invoker;
+    AjaxHub._Invoker = _Invoker;
 })(AjaxHub || (AjaxHub = {}));
 //# sourceMappingURL=AjaxHub.js.map

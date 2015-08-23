@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using AjaxAction;
 using Microsoft.Ajax.Utilities;
-using Sandbox.Asp46.AjaxHub;
 
 namespace Sandbox.Asp46.Controllers
 {
