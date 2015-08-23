@@ -63,7 +63,7 @@ namespace Sandbox.Asp46.AjaxHub
 
 	public class UrlResolver : IUrlResolver
 	{
-		private UrlHelper _urlHelper;
+		private readonly UrlHelper _urlHelper;
 
 		public UrlResolver(UrlHelper urlHelper)
 		{
