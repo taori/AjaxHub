@@ -7,30 +7,40 @@ I am trying to do the same thing here - providing a straight forward way to call
 
 As of the current date i will target the latest MVC versions
  - MVC 5.2.3
- - MVC 6 (Beta)
+ - MVC 6 (soon)
 
 If you require support for older versions there should be little overhead if you use only the AjaxHub.Core, because the core assembly is developed with no dependencies on MVC whatsoever.
 
-Usage:
+How to get started:
 
-You have to implement your Controller action as following:
+Global.asax.cs
 
-		[AjaxHubAction(ParameterNames = "a,delay")]
-		public ActionResult TestMethodB(string a, int delay)
-		{
-			var response = new AjaxActionResponse();
+		AjaxAction.AjaxHubBase.Register(typeof(MvcApplication).Assembly);
+		
+_Layout.cshtml
 
-			var content = response.GetActionContent(ControllerContext, helper => helper.Action("TestMethodC").ToString());
-			response.AddScript(string.Format("alert('{0}');", a));
-			response.AddScript(string.Format("alert('{0}');", delay));
-			response.SetContent("body", content);
+	<script type="text/javascript" src="@Url.Content("~/pathtojquery.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/AjaxHub/AjaxHub.js")"></script>
+	@Html.RegisterHub()
 
-			return response;
-		}
+You have to implement your Controller action in the following way:
+
+	[AjaxHubAction(ParameterNames = "a,delay")]
+	public ActionResult TestMethodB(string a, int delay)
+	{
+		var response = new AjaxActionResponse();
+
+		var content = response.GetActionContent(ControllerContext, helper => helper.Action("TestMethodC").ToString());
+		response.AddScript(string.Format("alert('{0}');", a));
+		response.AddScript(string.Format("alert('{0}');", delay));
+		response.SetContent("body", content);
+
+		return response;
+	}
 	
-In order to call it you can call it like this:
-
-AjaxHub.ControllerName.TestMethodB("some string", 42)
+Now you're able to call your Controller actions through javascript like this:
+	
+	AjaxHub.ControllerName.TestMethodB("some string", 42)
 
 This enables you to update multiple areas of your layout at once. But not only that. You're now able to have in place client logic. No longer will the logic+verification required to invoke one action reside in the view of another. Instead everything is driven by a controller action which handles potential options a user might want to choose from.
 
