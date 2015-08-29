@@ -1,34 +1,5 @@
 $packages = @("AjaxHub.Core","AjaxHub.MVC5")
 
-<#
-	batch version for comprehension
-
-	@echo off
-
-	SET NUGET=NuGet.exe
-	SET OUTDIR=.\packages
-	SET /p VER= <package.publish.version.txt
-	SET /p PACKNAME= <package.publish.name.txt
-	SET /p APK= <package.publish.apiKey.txt
-
-	rmdir /s /q %OUTDIR%\%VER%
-	mkdir %OUTDIR%
-	mkdir %OUTDIR%\%VER%
-
-	@ECHO ===NUGET Publishing Version %PACKNAME% %VER% to %OUTDIR%\%VER%
-	%NUGET% pack -Symbols -Version %VER% package.nuspec -OutputDirectory %OUTDIR%\%VER%
-
-	IF [%APK%] == [] GOTO end
-	IF [%PACKNAME%] == [] GOTO end
-
-	 %NUGET% push %OUTDIR%\%VER%\%PACKNAME%.%VER%.symbols.nupkg -ApiKey %APK%
-
-	:end
-
-	pause
-
-#>
-
 $apiKey = [IO.File]::ReadAllText("publish.apiKey.txt")
 	
 foreach ($package in $packages){
@@ -43,7 +14,7 @@ foreach ($package in $packages){
 		Remove-Item -Recurse -Force $packagePath
 	}
 
-	md -Force $packagePath
+	md -Force $packagePath | Out-Null
 
 	$packArguments = "pack -Symbols -Version $version $package.nuspec -OutputDirectory $packagePath";
 	"Packaging with Nuget.exe $packArguments"
@@ -52,9 +23,13 @@ foreach ($package in $packages){
 	
 	$pushArguments = "push $packagePath\$package.$version.symbols.nupkg $apiKey"
 	"Pushing with Nuget.exe $pushArguments"
-		
-	Start-Process -FilePath ".\Nuget.exe" -WindowStyle Hidden -ArgumentList $pushArguments -ErrorAction Stop
+	
+	Start-Process -FilePath ".\Nuget.exe" -WindowStyle Hidden -ArgumentList $pushArguments -ErrorAction Stop 
 	Start-Process -FilePath "https://www.nuget.org/packages/$package"
+	
+
+	"";
+	"";
 }
 
 Read-Host -Prompt "Script done. Press <enter>"
