@@ -20,16 +20,20 @@ foreach ($package in $packages){
 	"Packaging with Nuget.exe $packArguments"
 	Start-Process -FilePath ".\Nuget.exe" -WindowStyle Hidden -ArgumentList $packArguments -ErrorAction Stop
 
-	
-	$pushArguments = "push $packagePath\$package.$version.symbols.nupkg $apiKey"
+	<# todo: find out how to fix the push part
+	$pushArguments = "push $packagePath\$package.$version.nupkg -ApiKey $apiKey -Timeout 60 -Verbosity normal"
 	"Pushing with Nuget.exe $pushArguments"
 	
 	Start-Process -FilePath ".\Nuget.exe" -WindowStyle Hidden -ArgumentList $pushArguments -ErrorAction Stop 
 	Start-Process -FilePath "https://www.nuget.org/packages/$package"
+	#>
 	
+	Start-Process -FilePath "$packagePath\"	
 
 	"";
 	"";
 }
+
+Start-Process -FilePath "https://www.nuget.org/users/account/LogOn"
 
 Read-Host -Prompt "Script done. Press <enter>"

@@ -10,3 +10,4 @@ https://nuget.codeplex.com/wikipage?title=File%20Element%20Specification
 
 http://blogs.msdn.com/b/kalleb/archive/2008/07/19/using-powershell-to-read-xml-files.aspx
 https://www.simple-talk.com/sysadmin/powershell/powershell-data-basics-xml/
+https://docs.nuget.org/create/creating-and-publishing-a-symbol-package
