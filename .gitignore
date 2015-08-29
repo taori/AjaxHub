@@ -217,8 +217,9 @@ ModelManifest.xml
 # build environment
 !build/
 
-**/build/package.publish.apiKey.txt
+**/build/publish.apiKey.txt
 build/packages/**
+build/binaries/**
 
 
 

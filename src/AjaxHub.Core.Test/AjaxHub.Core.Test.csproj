@@ -65,15 +65,14 @@
     <Compile Include="TestSources\MethodCarrierMocks.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AjaxHub.v460.csproj">
-      <Project>{d6c083cc-dc99-42e9-a557-4b7c514eff5e}</Project>
-      <Name>AjaxHub.v460</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AjaxHub.Core\AjaxHub.Core.csproj">
+      <Project>{aa7888a1-e7b4-477f-924e-bf97964b17fa}</Project>
+      <Name>AjaxHub.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

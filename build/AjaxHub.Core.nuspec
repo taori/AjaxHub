@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>AjaxHub.Core</id>
-		<version>1.2.3</version>
+		<version>0.9.5-alpha</version>
 		<authors>Andreas Müller</authors>
 		<owners>Andreas Müller</owners>
 		<description>Coredependencies required to create a MVC version specific AjaxHub</description>
@@ -11,16 +11,16 @@
 		<licenseUrl>https://github.com/taori/AjaxHub/LICENSE.MD</licenseUrl>
 		<iconUrl>https://github.com/taori/AjaxHub/icon.png</iconUrl>
 		<tags>xajax mvc ajaxhub ajaxaction</tags>
-		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<dependencies>	
 			<group>
 				<dependency id="Newtonsoft.Json" version="(6.0,)" />
-				<dependency id="jQuery" version="(1.8.3,)" />
+				<dependency id="jQuery" version="[1.8.0,)" />
 			</group>
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="binaries\Release\lib\**" target="lib" />
-		<file src="..\src\content\**" target="content\" />
+		<file src="binaries\AjaxHub.Core\Release\lib\**" target="lib" />
+		<file src="..\src\AjaxHub.Core\content\**" target="content\" />
 	</files>
 </package>
