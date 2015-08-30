@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>AjaxHub.MVC5</id>
-		<version>0.9.6-alpha</version>
+		<version>0.9.9-alpha</version>
 		<authors>Andreas Müller</authors>
 		<owners>Andreas Müller</owners>
 		<description>This is an adapter package to provide built in support for MVC 5 so it's ready to go.</description>

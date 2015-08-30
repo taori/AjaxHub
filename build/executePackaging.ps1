@@ -1,6 +1,11 @@
 $packages = @("AjaxHub.Core","AjaxHub.MVC5")
 
 $apiKey = [IO.File]::ReadAllText("publish.apiKey.txt")
+
+$nugetPath = ".\Nuget.exe";
+
+Resolve-DnsName "www.nuget.org" -ErrorAction Stop | Out-Null
+Resolve-DnsName "www.symbolsource.org" -ErrorAction Stop | Out-Null
 	
 foreach ($package in $packages){
 	[xml]$xml = Get-Content($package + ".nuspec")
@@ -16,24 +21,20 @@ foreach ($package in $packages){
 
 	md -Force $packagePath | Out-Null
 
-	$packArguments = "pack -Symbols -Version $version $package.nuspec -OutputDirectory $packagePath";
+	# todo add sources for -Symbols pack process
+	#$packArguments = "pack -Symbols -Version $version $package.nuspec -OutputDirectory $packagePath";
+	$packArguments = "pack -Version $version $package.nuspec -OutputDirectory $packagePath";
 	"Packaging with Nuget.exe $packArguments"
-	Start-Process -FilePath ".\Nuget.exe" -WindowStyle Hidden -ArgumentList $packArguments -ErrorAction Stop
-
-	<# todo: find out how to fix the push part
+	Start-Process -FilePath $nugetPath -WindowStyle Hidden -ArgumentList $packArguments -ErrorAction Stop -Wait
+	
 	$pushArguments = "push $packagePath\$package.$version.nupkg -ApiKey $apiKey -Timeout 60 -Verbosity normal"
-	"Pushing with Nuget.exe $pushArguments"
-	
-	Start-Process -FilePath ".\Nuget.exe" -WindowStyle Hidden -ArgumentList $pushArguments -ErrorAction Stop 
-	Start-Process -FilePath "https://www.nuget.org/packages/$package"
-	#>
-	
-	Start-Process -FilePath "$packagePath\"	
+	"Pushing with Nuget.exe $pushArguments"	
+	Start-Process -FilePath $nugetPath -WindowStyle Hidden -ArgumentList $pushArguments -ErrorAction Stop -Wait
+
+	Start-Process -FilePath "https://www.nuget.org/packages/$package"	
 
 	"";
 	"";
 }
-
-Start-Process -FilePath "https://www.nuget.org/users/account/LogOn"
 
 Read-Host -Prompt "Script done. Press <enter>"
