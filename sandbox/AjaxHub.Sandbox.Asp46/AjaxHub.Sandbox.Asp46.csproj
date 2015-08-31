@@ -46,12 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxAction.MVC5, Version=1.0.5713.12351, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AjaxHub.MVC5.0.9.5-alpha\lib\net45\AjaxAction.MVC5.dll</HintPath>
+    <Reference Include="AjaxHub.Core">
+      <HintPath>..\..\src\packages\AjaxHub.Core.0.9.10-alpha\lib\net40\AjaxHub.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AjaxHub, Version=1.0.5713.10226, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AjaxHub.Core.0.9.4-alpha\lib\net46\AjaxHub.dll</HintPath>
+    <Reference Include="AjaxHub.MVC5">
+      <HintPath>..\..\src\packages\AjaxHub.MVC5.0.9.11-alpha\lib\net45\AjaxHub.MVC5.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>AjaxHub.Core</id>
-		<version>0.9.8-alpha</version>
+		<version>0.9.10-alpha</version>
 		<authors>Andreas Müller</authors>
 		<owners>Andreas Müller</owners>
 		<description>Coredependencies required to create a MVC version specific AjaxHub</description>
