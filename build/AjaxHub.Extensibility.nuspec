@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>AjaxHub.Extensibility</id>
+		<version>0.10.1-alpha</version>
+		<authors>Andreas Müller</authors>
+		<owners>Andreas Müller</owners>
+		<description>Extensibility library, for people who want to write static extension methods - this package will be changed as little as necessary.</description>
+		<language>en-US</language>
+		<projectUrl>https://github.com/taori/AjaxHub</projectUrl>
+		<licenseUrl>https://github.com/taori/AjaxHub/LICENSE.MD</licenseUrl>
+		<iconUrl>https://github.com/taori/AjaxHub/icon.png</iconUrl>
+		<tags>xajax mvc ajaxhub ajaxaction</tags>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<dependencies>	
+			<group>
+				<dependency id="Newtonsoft.Json" version="[7.0.1,8.0)" />
+				<dependency id="jQuery" version="[1.8.0,)" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="binaries\AjaxHub.Extensibility\Release\lib\**" target="lib" />
+	</files>
+</package>
