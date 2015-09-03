@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>AjaxHub.Core</id>
-		<version>0.9.10-alpha</version>
+		<version>0.9.11-alpha</version>
 		<authors>Andreas Müller</authors>
 		<owners>Andreas Müller</owners>
 		<description>Coredependencies required to create a MVC version specific AjaxHub</description>
@@ -14,13 +14,13 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<dependencies>	
 			<group>
-				<dependency id="Newtonsoft.Json" version="(6.0,)" />
+				<dependency id="Newtonsoft.Json" version="[7.0.1,8.0)" />
 				<dependency id="jQuery" version="[1.8.0,)" />
 			</group>
 		</dependencies>
 	</metadata>
 	<files>
 		<file src="binaries\AjaxHub.Core\Release\lib\**" target="lib" />
-		<file src="..\src\AjaxHub.Core\content\**" target="content\" />
+		<file src="..\src\AjaxHub.Core\content\**" target="content\" exclude="**\*.ts" />
 	</files>
 </package>

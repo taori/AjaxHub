@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExpressionHelperTests.cs" />
     <Compile Include="AjaxHubTests.cs" />
     <Compile Include="Environment\MockUtil.cs" />
     <Compile Include="MethodSignatureParserTests.cs" />

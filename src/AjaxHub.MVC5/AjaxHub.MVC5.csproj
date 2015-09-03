@@ -61,11 +61,6 @@
     <BaseIntermediateOutputPath>.\obj\$(TargetFrameworkVersion)\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxHub, Version=1.0.5713.10225, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AjaxHub.Core.0.9.4-alpha\lib\net45\AjaxHub.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>False</Private>
@@ -115,6 +110,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AjaxHub.Core\AjaxHub.Core.csproj">
+      <Project>{aa7888a1-e7b4-477f-924e-bf97964b17fa}</Project>
+      <Name>AjaxHub.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />

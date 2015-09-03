@@ -81,6 +81,7 @@
     <Compile Include="AjaxHubControllerAttribute.cs" />
     <Compile Include="AjaxResponseUtility.cs" />
     <Compile Include="EncodableStringWriter.cs" />
+    <Compile Include="ExpressionHelper.cs" />
     <Compile Include="HttpVerb.cs" />
     <Compile Include="ISignatureJavascriptSerializer.cs" />
     <Compile Include="ISignatureScanner.cs" />

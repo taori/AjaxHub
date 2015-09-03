@@ -47,11 +47,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxHub.Core">
-      <HintPath>..\..\src\packages\AjaxHub.Core.0.9.10-alpha\lib\net40\AjaxHub.Core.dll</HintPath>
+      <HintPath>..\..\src\packages\AjaxHub.Core.0.9.11-alpha\lib\net40\AjaxHub.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AjaxHub.MVC5">
-      <HintPath>..\..\src\packages\AjaxHub.MVC5.0.9.11-alpha\lib\net45\AjaxHub.MVC5.dll</HintPath>
+      <HintPath>..\..\src\packages\AjaxHub.MVC5.0.9.12-alpha\lib\net45\AjaxHub.MVC5.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -189,7 +189,6 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\AjaxHub\AjaxHub.ts" />
     <TypeScriptCompile Include="Scripts\typings\AjaxHub\AjaxHub.d.ts" />
   </ItemGroup>
   <PropertyGroup>
