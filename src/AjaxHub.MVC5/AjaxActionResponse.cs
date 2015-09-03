@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AjaxAction
@@ -28,6 +29,11 @@ namespace AjaxAction
 		{
 			var helper = new HtmlHelper(new ViewContext(controllerContext, new RazorView(controllerContext, "fake", "fake", false, null), new ViewDataDictionary(), new TempDataDictionary(), new EncodableStringWriter(Encoding)), new ViewPage());
 			return action(helper);
+		}
+
+		protected override string EncodeJavascriptString(string content)
+		{
+			return HttpUtility.JavaScriptStringEncode(content);
 		}
 	}
 }

@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Net;
 using System.Text;
+using System.Web;
 
 namespace AjaxAction
 {
@@ -24,6 +26,8 @@ namespace AjaxAction
 			Encoding = encoding;
 			Writer = new EncodableStringWriter(encoding);
 		}
+
+		protected abstract string EncodeJavascriptString(string content);
 
 		public IResetableStringWriter GetStringWriter()
 		{
@@ -56,6 +60,20 @@ namespace AjaxAction
 		public virtual void AddScript(string script)
 		{
 			Unicast.WriteScriptBlock(script);
+		}
+
+		/// <summary>
+		/// Adds an alert and escapes it in javascript fashion automatically.
+		/// </summary>
+		/// <param name="message"></param>
+		public virtual void AddAlert(string message)
+		{
+			Unicast.WriteScriptBlock(EncodeJavascriptString(message));
+		}
+
+		public virtual void Clear(string selector, string content)
+		{
+			Unicast.GetStringWriter().Clear();
 		}
 
 		public virtual void Append(string selector, string content)

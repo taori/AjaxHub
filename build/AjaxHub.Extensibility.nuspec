@@ -12,6 +12,9 @@
 		<iconUrl>https://github.com/taori/AjaxHub/icon.png</iconUrl>
 		<tags>xajax mvc ajaxhub ajaxaction</tags>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="System.Core" targetFramework="net40" />
+		</frameworkAssemblies>
 		<dependencies>	
 			<group>
 				<dependency id="Newtonsoft.Json" version="[7.0.1,8.0)" />
