@@ -79,7 +79,6 @@
     <Compile Include="AjaxHubActionAttribute.cs" />
     <Compile Include="AjaxHubBase.cs" />
     <Compile Include="AjaxHubControllerAttribute.cs" />
-    <Compile Include="AjaxResponseUtility.cs" />
     <Compile Include="EncodableStringWriter.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="HttpVerb.cs" />
@@ -95,6 +94,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AjaxHub.Extensibility\AjaxHub.Extensibility.csproj">
+      <Project>{c1588896-4803-48f1-96c6-383b022b37df}</Project>
+      <Name>AjaxHub.Extensibility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />

@@ -1,9 +1,10 @@
+using System;
 using System.IO;
 using System.Text;
 
 namespace AjaxAction
 {
-	public class EncodableStringWriter : StringWriter
+	public class EncodableStringWriter : StringWriter, IResetableStringWriter
 	{
 		public EncodableStringWriter(Encoding encoding)
 		{
@@ -11,5 +12,10 @@ namespace AjaxAction
 		}
 
 		public override Encoding Encoding { get; }
+
+		public void Clear()
+		{
+			this.GetStringBuilder().Clear();
+		}
 	}
 }

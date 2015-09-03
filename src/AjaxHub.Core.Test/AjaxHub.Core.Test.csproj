@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EncodableStringWriterTests.cs" />
     <Compile Include="ExpressionHelperTests.cs" />
     <Compile Include="AjaxHubTests.cs" />
     <Compile Include="Environment\MockUtil.cs" />
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\AjaxHub.Core\AjaxHub.Core.csproj">
       <Project>{aa7888a1-e7b4-477f-924e-bf97964b17fa}</Project>
       <Name>AjaxHub.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AjaxHub.Extensibility\AjaxHub.Extensibility.csproj">
+      <Project>{c1588896-4803-48f1-96c6-383b022b37df}</Project>
+      <Name>AjaxHub.Extensibility</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
