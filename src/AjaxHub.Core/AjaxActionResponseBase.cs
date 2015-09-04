@@ -27,7 +27,7 @@ namespace AjaxAction
 			Writer = new EncodableStringWriter(encoding);
 		}
 
-		protected abstract string EncodeJavascriptString(string content);
+		protected abstract string EncodeJavascriptString(string content, bool addDoubleQuotes = false);
 
 		public IResetableStringWriter GetStringWriter()
 		{
@@ -68,7 +68,12 @@ namespace AjaxAction
 		/// <param name="message"></param>
 		public virtual void AddAlert(string message)
 		{
-			Unicast.WriteScriptBlock(EncodeJavascriptString(message));
+			Unicast.WriteScriptBlock(string.Format("alert('{0}');", EncodeJavascriptString(message)));
+		}
+		
+		public virtual void AddAlert(string confirmationMessage, string script)
+		{
+			Unicast.WriteScriptBlock(string.Format("if(confirm('{0}')){{ {1} }}", EncodeJavascriptString(confirmationMessage), script));
 		}
 
 		public virtual void Clear(string selector, string content)

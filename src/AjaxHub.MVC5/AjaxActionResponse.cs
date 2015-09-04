@@ -31,9 +31,9 @@ namespace AjaxAction
 			return action(helper);
 		}
 
-		protected override string EncodeJavascriptString(string content)
+		protected override string EncodeJavascriptString(string content, bool addDoubleQuotes = false)
 		{
-			return HttpUtility.JavaScriptStringEncode(content);
+			return HttpUtility.JavaScriptStringEncode(content, addDoubleQuotes);
 		}
 	}
 }
