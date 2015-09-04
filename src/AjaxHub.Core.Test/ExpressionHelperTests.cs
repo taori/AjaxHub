@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AjaxAction;
 using AjaxHub.v460.Test.Environment;
@@ -19,6 +20,7 @@ namespace AjaxHub.v460.Test
 
 		public class TestClass
 		{
+			[ExcludeFromCodeCoverage]
 			public void TestMethodNoParams()
 			{
 			} 

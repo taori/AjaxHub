@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web.Mvc;
 using AjaxAction.MVC5.Test.Environment;
 using NUnit.Framework;
@@ -64,6 +65,7 @@ namespace AjaxAction.MVC5.Test
 	{
 		[AjaxHubAction(ParameterNames = "a")]
 		[Route("TestMethod/{a}", Name="TestName")]
+		[ExcludeFromCodeCoverage]
 		public ActionResult TestMethod(string a)
 		{
 			return Content("");
@@ -75,6 +77,7 @@ namespace AjaxAction.MVC5.Test
 	{
 		[AjaxHubAction(ParameterNames = "a")]
 		[Route("TestMethod/{a}", Name="TestName")]
+		[ExcludeFromCodeCoverage]
 		public ActionResult TestMethod(string a)
 		{
 			return Content("");
@@ -84,6 +87,7 @@ namespace AjaxAction.MVC5.Test
 	public class NoRouteController : Controller
 	{
 		[AjaxHubAction(ParameterNames = "a")]
+		[ExcludeFromCodeCoverage]
 		public ActionResult TestMethod(string a)
 		{
 			return Content("");

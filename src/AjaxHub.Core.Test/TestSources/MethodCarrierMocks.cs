@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using AjaxAction;
 
 namespace AjaxHub.v460.Test.TestSources
@@ -5,16 +6,19 @@ namespace AjaxHub.v460.Test.TestSources
 	[AjaxHubController]
 	public class TestClassNonConventional
 	{
+		[ExcludeFromCodeCoverage]
 		public void MethodNoAttribute(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b,c")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -22,16 +26,19 @@ namespace AjaxHub.v460.Test.TestSources
 	
 	public class TestClassInvalid
 	{
+		[ExcludeFromCodeCoverage]
 		public void MethodNoAttribute(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b,c")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -41,16 +48,19 @@ namespace AjaxHub.v460.Test.TestSources
 	{
 		public const string ExpectedName = "TestClassEnding";
 
-        public void MethodNoAttribute(string a, int b)
+		[ExcludeFromCodeCoverage]
+		public void MethodNoAttribute(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b,c")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -61,16 +71,19 @@ namespace AjaxHub.v460.Test.TestSources
 	{
 		public const string ControllerName = "NameOverride";
 
-        public void MethodNoAttribute(string a, int b)
+		[ExcludeFromCodeCoverage]
+		public void MethodNoAttribute(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "d,e")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string d, int e)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "f,g,h")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string f, int g, object h)
 		{
 		}
@@ -80,11 +93,13 @@ namespace AjaxHub.v460.Test.TestSources
 	public class TestClassSignatureThrowNoParameters
 	{
 		[AjaxHubAction]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -94,11 +109,13 @@ namespace AjaxHub.v460.Test.TestSources
 	public class TestClassSignatureThrowTooMany
 	{
 		[AjaxHubAction(ParameterNames = "a,b,c")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b,c,d")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -108,11 +125,13 @@ namespace AjaxHub.v460.Test.TestSources
 	public class TestClassSignatureThrowTooFew
 	{
 		[AjaxHubAction(ParameterNames = "a")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -122,16 +141,19 @@ namespace AjaxHub.v460.Test.TestSources
 	public class TestClassActionNamingTest
 	{
 		public const string Method1RenameValue = "DifferentName";
+		[ExcludeFromCodeCoverage]
 		public void MethodNoAttribute(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(Method1RenameValue, ParameterNames = "a,b")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "a,b,c")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string a, int b, object c)
 		{
 		}
@@ -141,16 +163,19 @@ namespace AjaxHub.v460.Test.TestSources
 	public class TestClassArgumentNames
 	{
 		public const string Method1RenameValue = "DifferentName";
+		[ExcludeFromCodeCoverage]
 		public void MethodNoAttribute(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(Method1RenameValue, "a,b")]
+		[ExcludeFromCodeCoverage]
 		public void Method1(string a, int b)
 		{
 		}
 
 		[AjaxHubAction(ParameterNames = "d,e,f")]
+		[ExcludeFromCodeCoverage]
 		public void Method2(string d, int e, object f)
 		{
 		}
