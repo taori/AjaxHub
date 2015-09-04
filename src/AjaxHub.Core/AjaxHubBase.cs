@@ -115,13 +115,15 @@ namespace AjaxAction
 			result.Add("url", urlResolver.Resolve(signature.ControllerName, signature.ActionName, null));
 			result.Add("action", signature.ActionName);
 			result.Add("controller", signature.ControllerName);
-			result.Add("method", signature.HttpVerb.ToString().ToUpperInvariant());
+			result.Add("method", GetMethodHttpVerb(signature).ToUpperInvariant());
 			result.Add("argumentNames", signature.MethodArgumentNames);
 			result.Add("callBefore", signature.HubMethodAttribute.CallBefore);
 			result.Add("callAfter", signature.HubMethodAttribute.CallAfter);
 
 			return result;
 		}
+
+		protected abstract string GetMethodHttpVerb(MethodSignature signature);
 
 		internal IDictionary<string, object> ConvertSignatureToDictionary(MethodSignature signature)
 		{

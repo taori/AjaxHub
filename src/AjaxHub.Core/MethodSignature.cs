@@ -13,7 +13,6 @@ namespace AjaxAction
 			MethodArgumentNames = argumentNames;
 			ActionName = actionName;
 			ControllerName = controllerName;
-			HttpVerb = HttpVerb.Post;
 			HubMethodAttribute = hubMethodAttribute;
 			ControllerType = type;
 			MethodInfo = method;
@@ -24,7 +23,6 @@ namespace AjaxAction
 
 		public string ControllerName { get; set; }
 		public string ActionName { get; set; }
-		public HttpVerb HttpVerb { get; set; }
 		public string RouteSignature { get; set; }
 		public string[] MethodArgumentNames { get; private set; }
 		public AjaxHubActionAttribute HubMethodAttribute { get; private set; }

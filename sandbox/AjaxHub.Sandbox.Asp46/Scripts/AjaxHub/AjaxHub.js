@@ -23,6 +23,18 @@ var AjaxHub;
         function Request(signatureCall) {
             this.signatureCall = signatureCall;
         }
+        Request.getSignatureUrl = function (signature) {
+            if (signature.signature.routeTemplate == null)
+                return signature.signature.url;
+            var templatedUrl = signature.signature.routeTemplate;
+            templatedUrl = templatedUrl.replace("[action]", signature.signature.action);
+            templatedUrl = templatedUrl.replace("[controller]", signature.signature.controller);
+            for (var valueName in signature.values) {
+                var parameterRegex = new RegExp("\{(" + valueName + "|" + valueName + ":[^}]+)\}", "gi");
+                templatedUrl = templatedUrl.replace(parameterRegex, signature.values[valueName]);
+            }
+            return templatedUrl;
+        };
         Request.prototype.endRequest = function () {
             this.$executionTarget.remove();
             this.$executionTarget = null;
@@ -48,7 +60,7 @@ var AjaxHub;
                 return;
             }
             $.ajax({
-                'url': this.signatureCall.signature.url,
+                'url': Request.getSignatureUrl(this.signatureCall),
                 'data': this.signatureCall.values,
                 'traditional': true,
                 'method': this.signatureCall.signature.method

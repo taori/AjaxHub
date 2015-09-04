@@ -17,5 +17,7 @@ declare module AjaxHub {
 		argumentNames: string[];
 		callBefore : string;
 		callAfter : string;
+		routeTemplate : string;
+		routeName : string;
 	}
 }

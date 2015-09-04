@@ -139,7 +139,7 @@
     <Content Include="Scripts\AjaxHub\AjaxHub.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\AjaxHub\AjaxHub.js.map" />
+    <None Include="Scripts\AjaxHub\AjaxHub.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

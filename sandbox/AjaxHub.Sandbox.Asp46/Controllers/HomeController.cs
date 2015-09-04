@@ -9,6 +9,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace Sandbox.Asp46.Controllers
 {
+	[RoutePrefix("Home")]
 	public class HomeController : Controller
 	{
 		public ActionResult Index()
@@ -42,6 +43,8 @@ namespace Sandbox.Asp46.Controllers
 		}
 
 		[AjaxHubAction(ParameterNames = "a,delay")]
+		[Route("TestMethodB/{a}/{delay:int}")]
+		[HttpPost]
 		public ActionResult TestMethodB(string a, int delay)
 		{
 			var response = new AjaxActionResponse();

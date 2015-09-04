@@ -39,5 +39,34 @@ namespace AjaxAction
 			
 			return values;
 		}
+		
+		protected override string GetMethodHttpVerb(MethodSignature signature)
+		{
+			object attribute = signature.MethodInfo.GetCustomAttribute<HttpPostAttribute>();
+			if(attribute != null)
+				return HttpVerbs.Post.ToString().ToUpperInvariant();
+
+			attribute = signature.MethodInfo.GetCustomAttribute<HttpDeleteAttribute>();
+			if(attribute != null)
+				return HttpVerbs.Delete.ToString().ToUpperInvariant();
+
+			attribute = signature.MethodInfo.GetCustomAttribute<HttpPutAttribute>();
+			if(attribute != null)
+				return HttpVerbs.Put.ToString().ToUpperInvariant();
+
+			attribute = signature.MethodInfo.GetCustomAttribute<HttpPatchAttribute>();
+			if(attribute != null)
+				return HttpVerbs.Patch.ToString().ToUpperInvariant();
+
+			attribute = signature.MethodInfo.GetCustomAttribute<HttpOptionsAttribute>();
+			if(attribute != null)
+				return HttpVerbs.Options.ToString().ToUpperInvariant();
+
+			attribute = signature.MethodInfo.GetCustomAttribute<HttpHeadAttribute>();
+			if(attribute != null)
+				return HttpVerbs.Head.ToString().ToUpperInvariant();
+
+			return HttpVerbs.Get.ToString().ToUpperInvariant();
+		}
 	}
 }
