@@ -26,6 +26,6 @@
 	</metadata>
 	<files>
 		<file src="binaries\AjaxHub.Core\Release\lib\**" target="lib" />
-		<file src="..\src\AjaxHub.Core\content\**" target="content\" exclude="**\*.ts" />
+		<file src="..\src\AjaxHub.Core\content\**" target="content\" exclude="**\AjaxHub.ts" />
 	</files>
 </package>
