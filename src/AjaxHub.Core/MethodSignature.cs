@@ -23,7 +23,6 @@ namespace AjaxAction
 
 		public string ControllerName { get; set; }
 		public string ActionName { get; set; }
-		public string RouteSignature { get; set; }
 		public string[] MethodArgumentNames { get; private set; }
 		public AjaxHubActionAttribute HubMethodAttribute { get; private set; }
 

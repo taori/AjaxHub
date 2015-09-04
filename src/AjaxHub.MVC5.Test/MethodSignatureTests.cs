@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using AjaxAction.MVC5.Test.Environment;
+using AjaxAction.MVC5.Test.TestSources;
 using NUnit.Framework;
 
 namespace AjaxAction.MVC5.Test
@@ -22,8 +23,8 @@ namespace AjaxAction.MVC5.Test
 			Assert.That(dictionary, Is.Not.Null);
 			Assert.That(dictionary.Count, Is.GreaterThanOrEqualTo(1));
 
-			Assert.That(dictionary["routeTemplate"], Is.EqualTo("TestMethod/{a}"));
-			Assert.That(dictionary["routeName"], Is.EqualTo("TestName"));
+			Assert.That(dictionary["routeTemplate"], Is.EqualTo("TestMethodA/{a}"));
+			Assert.That(dictionary["routeName"], Is.EqualTo("TestMethodA"));
 		}
 
 		[Test]
@@ -39,8 +40,8 @@ namespace AjaxAction.MVC5.Test
 			Assert.That(dictionary, Is.Not.Null);
 			Assert.That(dictionary.Count, Is.GreaterThanOrEqualTo(1));
 
-			Assert.That(dictionary["routeTemplate"], Is.EqualTo("SomePrefix/TestMethod/{a}"));
-			Assert.That(dictionary["routeName"], Is.EqualTo("TestName"));
+			Assert.That(dictionary["routeTemplate"], Is.EqualTo("SomePrefix/TestMethodB/{a}"));
+			Assert.That(dictionary["routeName"], Is.EqualTo("TestMethodB"));
 		}
 
 		[Test]
@@ -59,38 +60,33 @@ namespace AjaxAction.MVC5.Test
 			Assert.That(dictionary["routeTemplate"], Is.EqualTo(null));
 			Assert.That(dictionary["routeName"], Is.EqualTo(null));
 		}
-	}
 
-	public class RouteTemplateNoPrefixController : Controller
-	{
-		[AjaxHubAction(ParameterNames = "a")]
-		[Route("TestMethod/{a}", Name="TestName")]
-		[ExcludeFromCodeCoverage]
-		public ActionResult TestMethod(string a)
+		[Test]
+		public void ExpressionNoRoute()
 		{
-			return Content("");
+			var value = AjaxHubExpression.For<NoRouteController>(d => d.TestMethod("asd"));
+			Assert.That(value, Is.EqualTo("AjaxHub.NoRoute.TestMethod"));
 		}
-	}
 
-	[RoutePrefix("SomePrefix")]
-	public class RouteTemplateWithPrefixController : Controller
-	{
-		[AjaxHubAction(ParameterNames = "a")]
-		[Route("TestMethod/{a}", Name="TestName")]
-		[ExcludeFromCodeCoverage]
-		public ActionResult TestMethod(string a)
+		[Test]
+		public void ExpressionRouteTemplateNoPrefix()
 		{
-			return Content("");
+			var value = AjaxHubExpression.For<RouteTemplateNoPrefixController>(d => d.TestMethod("asd"));
+			Assert.That(value, Is.EqualTo("AjaxHub.RouteTemplateNoPrefix.TestMethodA"));
 		}
-	}
-	
-	public class NoRouteController : Controller
-	{
-		[AjaxHubAction(ParameterNames = "a")]
-		[ExcludeFromCodeCoverage]
-		public ActionResult TestMethod(string a)
+
+		[Test]
+		public void ExpressionRouteTemplateWithPrefix()
 		{
-			return Content("");
+			var value = AjaxHubExpression.For<RouteTemplateWithPrefixController>(d => d.TestMethod("asd"));
+			Assert.That(value, Is.EqualTo("AjaxHub.RouteTemplateWithPrefix.TestMethodB"));
+		}
+
+		[Test]
+		public void ExpressionNoSuffix()
+		{
+			var value = AjaxHubExpression.For<NoSuffix>(d => d.TestMethod("asd"));
+			Assert.That(value, Is.EqualTo($"AjaxHub.{nameof(NoSuffix)}.TestMethod"));
 		}
 	}
 }

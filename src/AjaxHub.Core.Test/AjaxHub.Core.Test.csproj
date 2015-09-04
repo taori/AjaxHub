@@ -59,12 +59,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EncodableStringWriterTests.cs" />
-    <Compile Include="ExpressionHelperTests.cs" />
+    <Compile Include="AjaxHubUtilityTests.cs" />
     <Compile Include="AjaxHubTests.cs" />
     <Compile Include="Environment\MockUtil.cs" />
     <Compile Include="MethodSignatureParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSources\MethodCarrierMocks.cs" />
+    <Compile Include="TestSources\TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

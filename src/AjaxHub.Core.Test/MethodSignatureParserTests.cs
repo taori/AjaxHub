@@ -24,15 +24,6 @@ namespace AjaxHub.v460.Test
 		}
 
 		[Test]
-		[Ignore]
-		public void DiscoverByAssembly()
-		{
-			// does not work because of exception checks - trivial code anyway
-			var result = GetScanner().Scan(typeof(TestClassEndingController).Assembly).Where(d => d.ControllerName == TestClassEndingController.ExpectedName).ToArray();
-			Assert.That(result.Length, Is.EqualTo(2));
-		}
-
-		[Test]
 		public void MethodNamesAutomatic()
 		{
 			var result = GetScanner().Scan(typeof(TestClassEndingController)).ToArray();

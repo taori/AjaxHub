@@ -89,6 +89,7 @@
     <Compile Include="Environment\MockUtil.cs" />
     <Compile Include="MethodSignatureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSources\MethodSignatureSources.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AjaxHub.Core\AjaxHub.Core.csproj">
@@ -107,6 +108,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
