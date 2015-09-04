@@ -81,7 +81,7 @@ namespace AjaxAction
 			var controllerName = GetControllerName(type);
 			var actionName = GetActionName(type, method);
 			var argumentNames = GetArgumentNames(method);
-			var result = new MethodSignature(methodAttribute, controllerName, actionName, argumentNames);
+			var result = new MethodSignature(type, method, methodAttribute, controllerName, actionName, argumentNames);
 			return result;
 		}
 
@@ -132,13 +132,13 @@ namespace AjaxAction
 		}
 
 		private static readonly Regex SplitPattern = new Regex("[,;\\.]", RegexOptions.Compiled);
-		private static string[] _noArguments = new string[0];
+		private static readonly string[] NoArguments = new string[0];
 		private static readonly string NameController = "Controller";
 
 		public virtual string[] SplitNames(string arguments)
 		{
 			if (arguments == null)
-				return _noArguments;
+				return NoArguments;
 
             return SplitPattern.Split(arguments);
 		}

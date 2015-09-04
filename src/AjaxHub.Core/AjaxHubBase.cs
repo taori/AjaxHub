@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AjaxAction
 {
@@ -17,7 +18,7 @@ namespace AjaxAction
 		protected abstract IUrlResolver CreateUrlResolver();
 
 		private IUrlResolver _urlResolver;
-		public virtual IUrlResolver GetUrlResolver()
+		protected IUrlResolver GetUrlResolver()
 		{
 			return _urlResolver ?? (_urlResolver = this.CreateUrlResolver());
 		}
@@ -47,22 +48,16 @@ namespace AjaxAction
 			return _renderedHubMethods = writer.ToString();
 		}
 
-		public virtual ISignatureJavascriptSerializer CreateSignatureSerializer()
-		{
-			return new SignatureJavascriptSerializerBase();
-		}
-
-		public IEnumerable<MethodSignature> GetAssemblySignatures()
+		protected IEnumerable<MethodSignature> GetAssemblySignatures()
 		{
 			var scanner = CreateScanner();
 			return RegisteredAssemblies.SelectMany(assembly => scanner.Scan(assembly));
 		}
 
-		public string RenderHubFunctions(IEnumerable<MethodSignature> signatures)
+		internal string RenderHubFunctions(IEnumerable<MethodSignature> signatures)
 		{
 			// todo maybe a build talk can persist this into a javascript/d.ts file so IDE delivers auto completion
 			var writer = new StringWriter();
-			var serializer = CreateSignatureSerializer();
 			var signaturesGrouped = signatures.GroupBy(d => d.ControllerName);
 
 			writer.WriteLine("$.extend(AjaxHub, {");
@@ -82,13 +77,13 @@ namespace AjaxAction
 				for (int index = 0; index < currentControllerSignatures.Count; index++)
 				{
 					var signature = currentControllerSignatures[index];
-					var valueCollection = serializer.SerializeCallValues(signature, this);
+					var valueCollection = ConvertSignatureToDictionary(signature);
 					signature.OnSignatureSerialized(valueCollection, this);
 					var serializedSignatureINfo = JsonConvert.SerializeObject(valueCollection);
-					var parameterDelegationObject = serializer.BuildArgumentDelegationObject(signature);
+					var parameterDelegationObject = BuildArgumentDelegationObject(signature);
 					var signatureArgumentCount = signature.MethodArgumentNames.Length;
 
-					var jsParamList = GetJavascriptParameterCallList(signature);
+					var jsParamList = AjaxHubUtility.GetJavascriptParameterCallList(signature);
 					if (index < lastIndex)
 					{
 						writer.WriteLine("  '{0}' : function({2}) {{ AjaxHub._Invoker.execute({{'signature' : {1}, 'values' : {3}, 'extraArguments' : Array.prototype.slice.call(arguments, " + signatureArgumentCount + ") }}); }},", signature.ActionName, serializedSignatureINfo, jsParamList, parameterDelegationObject);
@@ -113,12 +108,38 @@ namespace AjaxAction
 			return writer.ToString();
 		}
 
-		public string GetJavascriptParameterCallList(MethodSignature signature)
+		protected virtual IDictionary<string, object> OnConvertSignatureToDictionary(MethodSignature signature)
 		{
-			if(signature.MethodArgumentNames != null && signature.MethodArgumentNames.Length > 0)
-				return string.Join(", ", signature.MethodArgumentNames);
+			var result = new Dictionary<string, object>();
+			var urlResolver = this.GetUrlResolver();
+			result.Add("url", urlResolver.Resolve(signature.ControllerName, signature.ActionName, null));
+			result.Add("action", signature.ActionName);
+			result.Add("controller", signature.ControllerName);
+			result.Add("method", signature.HttpVerb.ToString().ToUpperInvariant());
+			result.Add("argumentNames", signature.MethodArgumentNames);
+			result.Add("callBefore", signature.HubMethodAttribute.CallBefore);
+			result.Add("callAfter", signature.HubMethodAttribute.CallAfter);
 
-			return string.Empty;
+			return result;
+		}
+
+		internal IDictionary<string, object> ConvertSignatureToDictionary(MethodSignature signature)
+		{
+			return OnConvertSignatureToDictionary(signature);
+		}
+
+		protected string BuildArgumentDelegationObject(MethodSignature signature)
+		{
+			if (signature.MethodArgumentNames == null || signature.MethodArgumentNames.Length == 0)
+				return "{}";
+
+			var root = new JObject();
+			foreach (var name in signature.MethodArgumentNames)
+			{
+				root.Add(name, new JRaw(name));
+			}
+
+			return root.ToString(Formatting.None);
 		}
 	}
 }

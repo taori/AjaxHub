@@ -32,7 +32,8 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 
-[assembly:InternalsVisibleTo("AjaxHub.v460.Test")]
+[assembly: InternalsVisibleTo("AjaxHub.v460.Test")]
+[assembly: InternalsVisibleTo("AjaxHub.MVC5.Test")]
 
 #if NET40
 [assembly: AssemblyTitle("AjaxHub MVC5 .Net 4.0")]

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.Sandbox.Asp46", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.Extensibility", "AjaxHub.Extensibility\AjaxHub.Extensibility.csproj", "{C1588896-4803-48F1-96C6-383B022B37DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxHub.MVC5.Test", "AjaxHub.MVC5.Test\AjaxHub.MVC5.Test.csproj", "{76D4778C-499E-4284-8E66-D975BDE23AAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C1588896-4803-48F1-96C6-383B022B37DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1588896-4803-48F1-96C6-383B022B37DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1588896-4803-48F1-96C6-383B022B37DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D4778C-499E-4284-8E66-D975BDE23AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D4778C-499E-4284-8E66-D975BDE23AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D4778C-499E-4284-8E66-D975BDE23AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D4778C-499E-4284-8E66-D975BDE23AAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

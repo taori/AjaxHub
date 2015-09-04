@@ -19,13 +19,12 @@ namespace AjaxHub.v460.Test
 		[Test]
 		public void JavascriptArgumentDelegation()
 		{
-			var ajaxHub = GetHub();
 			var scanner = new SignatureScannerBase();
 			var signatures = scanner.Scan(typeof (TestClassEndingController)).Concat(scanner.Scan(typeof(TestClassWithControllerAttribute)));
 
 			Assert.That(signatures.Count(), Is.GreaterThan(0));
 			var signatureWithArguments = signatures.FirstOrDefault(d => d.MethodArgumentNames.Length > 0);
-			var argumentList = ajaxHub.GetJavascriptParameterCallList(signatureWithArguments);
+			var argumentList = AjaxHubUtility.GetJavascriptParameterCallList(signatureWithArguments);
 
 			Assert.That(argumentList, Is.Not.Null);
 			Assert.That(argumentList.Length, Is.GreaterThan(0));
