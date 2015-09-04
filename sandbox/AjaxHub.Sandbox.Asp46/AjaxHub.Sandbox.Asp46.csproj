@@ -48,14 +48,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxHub.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\src\packages\AjaxHub.Core.0.9.11-alpha\lib\net40\AjaxHub.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AjaxHub.MVC5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\src\packages\AjaxHub.MVC5.0.9.12-alpha\lib\net45\AjaxHub.MVC5.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -192,6 +184,20 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\AjaxHub\AjaxHub.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AjaxHub.Core\AjaxHub.Core.csproj">
+      <Project>{aa7888a1-e7b4-477f-924e-bf97964b17fa}</Project>
+      <Name>AjaxHub.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\AjaxHub.Extensibility\AjaxHub.Extensibility.csproj">
+      <Project>{c1588896-4803-48f1-96c6-383b022b37df}</Project>
+      <Name>AjaxHub.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\AjaxHub.MVC5\AjaxHub.MVC5.csproj">
+      <Project>{ab671c38-a55e-4e17-b3f5-09f8b3c5e0bb}</Project>
+      <Name>AjaxHub.MVC5</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

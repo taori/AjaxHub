@@ -31,6 +31,11 @@ namespace AjaxAction
 				values.Add("routeTemplate", mergedRouteTemplate);
 				values.Add("routeName", routeAttribute.Name);
 			}
+			else
+			{
+				values.Add("routeTemplate", null);
+				values.Add("routeName", null);
+			}
 			
 			return values;
 		}

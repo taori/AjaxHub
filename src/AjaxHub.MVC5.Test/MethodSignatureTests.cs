@@ -41,6 +41,23 @@ namespace AjaxAction.MVC5.Test
 			Assert.That(dictionary["routeTemplate"], Is.EqualTo("SomePrefix/TestMethod/{a}"));
 			Assert.That(dictionary["routeName"], Is.EqualTo("TestName"));
 		}
+
+		[Test]
+		public void JavascriptSignatureNoRoute()
+		{
+			var hub = new AjaxHubProxy();
+
+			var scanner = new SignatureScannerBase();
+			var signatures = scanner.Scan(typeof (NoRouteController)).ToList();
+
+			Assert.That(signatures.Count, Is.GreaterThanOrEqualTo(1));
+			var dictionary = hub.ConvertSignatureToDictionary(signatures[0]);
+			Assert.That(dictionary, Is.Not.Null);
+			Assert.That(dictionary.Count, Is.GreaterThanOrEqualTo(1));
+
+			Assert.That(dictionary["routeTemplate"], Is.EqualTo(null));
+			Assert.That(dictionary["routeName"], Is.EqualTo(null));
+		}
 	}
 
 	public class RouteTemplateNoPrefixController : Controller
@@ -58,6 +75,15 @@ namespace AjaxAction.MVC5.Test
 	{
 		[AjaxHubAction(ParameterNames = "a")]
 		[Route("TestMethod/{a}", Name="TestName")]
+		public ActionResult TestMethod(string a)
+		{
+			return Content("");
+		}
+	}
+	
+	public class NoRouteController : Controller
+	{
+		[AjaxHubAction(ParameterNames = "a")]
 		public ActionResult TestMethod(string a)
 		{
 			return Content("");
