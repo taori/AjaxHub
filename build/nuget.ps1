@@ -2,7 +2,7 @@ param(
 	[bool] $PushToNuget = $false
 )
 
-$packages = @("AjaxHub.Core","AjaxHub.MVC5")
+$packages = @("AjaxHub.Extensibility","AjaxHub.Core","AjaxHub.MVC5")
 
 $apiKey = [IO.File]::ReadAllText("publish.apiKey.txt")
 
