@@ -6,7 +6,7 @@ namespace AjaxAction
     public interface IAjaxActionResponse
     {
 	    IResetableStringWriter GetStringWriter();
-	    Guid WriteContentContainer(string content);
+	    string WriteContentContainer(string content);
 	    void WriteScriptBlock(string content);
     }
 }

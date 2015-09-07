@@ -34,7 +34,29 @@
         </div>
     </div>
 <div class="container body-content">
-	<button onclick="AjaxHub.Home.@(nameof(HomeController.TestMethodB))('some text', 42)">execute ajax hub call @(nameof(HomeController.TestMethodB))</button>
+	<script type="text/javascript">
+		
+		AjaxHubCallRequestStart = function (args) {
+			console.log("AjaxHubCallRequestStart");
+			console.log(arguments);
+		}
+
+		AjaxHubCallRequestDone = function (args) {
+			console.log("AjaxHubCallRequestDone");
+			console.log(arguments);
+		}
+
+		callBeforeTestMethodB = function (args) {
+			console.log("beforeCall");
+			console.log(arguments);
+		}
+
+		callAfterTestMethodB = function (args) {
+			console.log("afterCall");
+			console.log(arguments);
+		}
+	</script>
+	<button onclick="AjaxHub.Home.@(nameof(HomeController.TestMethodB))('some text', 42);">execute ajax hub call @(nameof(HomeController.TestMethodB))</button>
 	@RenderBody()
 	<hr/>
 	<footer>

@@ -92,6 +92,7 @@
     <ProjectReference Include="..\AjaxHub.Extensibility\AjaxHub.Extensibility.csproj">
       <Project>{c1588896-4803-48f1-96c6-383b022b37df}</Project>
       <Name>AjaxHub.Extensibility</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

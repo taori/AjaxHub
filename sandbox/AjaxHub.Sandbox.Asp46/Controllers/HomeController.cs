@@ -39,10 +39,10 @@ namespace Sandbox.Asp46.Controllers
 		
 		public ActionResult TestMethodC()
 		{
-			return Content("i need to stop vulgar testmessages<script type='text/javascript'>alert(\"because github is just the wrong place for it.\");</script>");
+			return Content("i need to stop using vulgar testmessages<script type='text/javascript'>alert(\"because github is just the wrong place for it.\");</script>");
 		}
 
-		[AjaxHubAction(ParameterNames = "a,delay")]
+		[AjaxHubAction(ParameterNames = "a,delay", CallBefore = "callBeforeTestMethodB", CallAfter = "callAfterTestMethodB")]
 		[Route("TestMethodB/{a}/{delay:int}")]
 		[HttpPost]
 		public ActionResult TestMethodB(string a, int delay)
@@ -50,9 +50,9 @@ namespace Sandbox.Asp46.Controllers
 			var response = new AjaxActionResponse();
 
 			var content = response.GetActionContent(ControllerContext, helper => helper.Action("TestMethodC").ToString());
+			response.Append("body", content);
 			response.AddScript(string.Format("alert('{0}');", a));
 			response.AddScript(string.Format("alert('{0}');", delay));
-			response.SetContent("body", content);
 
 			return response;
 		}

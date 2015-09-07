@@ -189,14 +189,17 @@
     <ProjectReference Include="..\..\src\AjaxHub.Core\AjaxHub.Core.csproj">
       <Project>{aa7888a1-e7b4-477f-924e-bf97964b17fa}</Project>
       <Name>AjaxHub.Core</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\src\AjaxHub.Extensibility\AjaxHub.Extensibility.csproj">
       <Project>{c1588896-4803-48f1-96c6-383b022b37df}</Project>
       <Name>AjaxHub.Extensibility</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\src\AjaxHub.MVC5\AjaxHub.MVC5.csproj">
       <Project>{ab671c38-a55e-4e17-b3f5-09f8b3c5e0bb}</Project>
       <Name>AjaxHub.MVC5</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

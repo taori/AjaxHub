@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>AjaxHub.Extensibility</id>
-		<version>0.10.1-alpha</version>
+		<version>0.12.2-alpha</version>
 		<authors>Andreas Müller</authors>
 		<owners>Andreas Müller</owners>
 		<description>Extensibility library, for people who want to write static extension methods - this package will be changed as little as necessary.</description>
@@ -15,12 +15,6 @@
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="System.Core" targetFramework="net40" />
 		</frameworkAssemblies>
-		<dependencies>	
-			<group>
-				<dependency id="Newtonsoft.Json" version="[7.0.1,8.0)" />
-				<dependency id="jQuery" version="[1.8.0,)" />
-			</group>
-		</dependencies>
 	</metadata>
 	<files>
 		<file src="binaries\AjaxHub.Extensibility\Release\lib\**" target="lib" />

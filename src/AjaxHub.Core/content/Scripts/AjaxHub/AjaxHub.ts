@@ -33,6 +33,7 @@
 
 		private $executionTarget : JQuery;
 		private callEvent: CallEvent;
+		private callEventArgumentArray: Array<any>;
 
 		private static getSignatureUrl(signature: ISignatureCall): string {
 			if (signature.signature.routeTemplate == null)
@@ -54,6 +55,7 @@
 			this.$executionTarget.remove();
 			this.$executionTarget = null;
 			this.callEvent = null;
+			this.callEventArgumentArray = null;
 			this.signatureCall = null;
 			_Invoker.statistics.runningRequests--;
 		}
@@ -62,19 +64,21 @@
 
 			this.$executionTarget = _Invoker.getRequestContainer();
 			this.callEvent = new CallEvent(this.signatureCall);
-
+			this.callEventArgumentArray = this.createCallArray(this.callEvent, this.signatureCall);
+			
 			_Invoker.statistics.runningRequests++;
 
-			if (window["AjaxHubCallRequestStart"] === "function")
-				window["AjaxHubCallRequestStart"](this.callEvent);
+
+			if (typeof window["AjaxHubCallRequestStart"] === "function")
+				window["AjaxHubCallRequestStart"].apply(this, this.callEventArgumentArray);
 
 			if (this.callEvent.isCanceled()) {
 				this.endRequest();
 				return;
 			}
 
-			if (window[this.signatureCall.signature.callBefore] === "function")
-				window[this.signatureCall.signature.callBefore](this.callEvent);
+			if (typeof window[this.signatureCall.signature.callBefore] === "function")
+				window[this.signatureCall.signature.callBefore].apply(this, this.callEventArgumentArray);
 
 			if (this.callEvent.isCanceled()) {
 				this.endRequest();
@@ -90,19 +94,29 @@
 
 				this.$executionTarget.append(data);
 
-				if (window[this.signatureCall.signature.callAfter] === "function")
-					window[this.signatureCall.signature.callAfter](this.callEvent);
+				if (typeof window[this.signatureCall.signature.callAfter] === "function")
+					window[this.signatureCall.signature.callAfter].apply(this, this.callEventArgumentArray);
 
 				if (this.callEvent.isCanceled()) {
 					this.endRequest();
 					return;
 				}
 
-				if (window["AjaxHubCallRequestDone"] === "function")
-					window["AjaxHubCallRequestDone"](this.callEvent);
+				if (typeof window["AjaxHubCallRequestDone"] === "function")
+					window["AjaxHubCallRequestDone"].apply(this, this.callEventArgumentArray);
 
 				this.endRequest();
 			});
+		}
+
+		public createCallArray(callEvent: CallEvent, signatureCall: ISignatureCall): any[] {
+			var result = [];
+			result.push(callEvent);
+			for (var index in signatureCall.signature.argumentNames) {
+				var name = signatureCall.signature.argumentNames[index];
+				result.push(signatureCall.values[name]);
+			}
+			return result;
 		}
 	}
 
