@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AjaxAction
@@ -13,7 +16,11 @@ namespace AjaxAction
 
 		public string Resolve(string controllerName, string actionName, object values)
 		{
-			return _urlHelper.Action(actionName, controllerName, values);
+			var front = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
+			var url = _urlHelper.Action(actionName, controllerName, values) ?? string.Empty;
+			var merged = front.TrimEnd('/') + "/" + url.TrimStart('/');
+
+			return merged;
 		}
 	}
 }
