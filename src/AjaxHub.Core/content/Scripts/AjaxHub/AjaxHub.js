@@ -65,7 +65,8 @@ var AjaxHub;
                 'url': Request.getSignatureUrl(this.signatureCall),
                 'data': this.signatureCall.values,
                 'traditional': true,
-                'method': this.signatureCall.signature.method
+                'method': this.signatureCall.signature.method,
+                'type': this.signatureCall.signature.method
             }).done(function (data) {
                 _this.$executionTarget.append(data);
                 if (typeof window[_this.signatureCall.signature.callAfter] === "function")

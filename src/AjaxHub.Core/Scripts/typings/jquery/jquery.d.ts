@@ -142,6 +142,10 @@ interface JQueryAjaxSettings {
      */
     type?: string;
     /**
+     * The type of request to make ("POST" or "GET"), default is "GET". Note: Other HTTP request methods, such as PUT and DELETE, can also be used here, but they are not supported by all browsers.
+     */
+    method?: string;
+    /**
      * A string containing the URL to which the request is sent.
      */
     url?: string;

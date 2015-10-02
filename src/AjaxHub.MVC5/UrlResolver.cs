@@ -16,7 +16,7 @@ namespace AjaxAction
 
 		public string Resolve(string controllerName, string actionName, object values)
 		{
-			var front = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
+			var front = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
 			var url = _urlHelper.Action(actionName, controllerName, values) ?? string.Empty;
 			var merged = front.TrimEnd('/') + "/" + url.TrimStart('/');
 

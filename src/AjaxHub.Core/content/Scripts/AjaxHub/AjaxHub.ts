@@ -84,12 +84,13 @@
 				this.endRequest();
 				return;
 			}
-
+			
 			$.ajax({
 				'url': Request.getSignatureUrl(this.signatureCall),
 				'data': this.signatureCall.values,
 				'traditional': true,
-				'method': this.signatureCall.signature.method
+				'method': this.signatureCall.signature.method,
+				'type': this.signatureCall.signature.method
 			}).done(data => {
 
 				this.$executionTarget.append(data);
